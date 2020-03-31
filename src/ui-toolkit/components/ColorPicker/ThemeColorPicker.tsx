@@ -1,6 +1,6 @@
 import React from "react";
 import { Dropdown } from "office-ui-fabric-react/lib/Dropdown";
-import styled from "styled-components";
+import styled from "ui-toolkit/styled-components";
 import { getThemeValue } from "../PortalsThemeProvider/PortalsThemeProvider";
 
 import ColorPicker from "./ColorPicker";
@@ -9,10 +9,14 @@ const options = [
   { key: "themeSecondary", text: "Theme Secondary" },
   { key: "themeTertiary", text: "Theme Tertiary" },
   { key: "white", text: "White (Theme)" },
+  // Allow injecting options here
   { key: "other", text: "Other" },
 ];
 
-export const getHexColor = function(color: string): string {
+export const getHexColor = function(
+  color: string,
+  namespace: "palette" | "global" | "semanticColors" = "palette"
+): string {
   // if (!checkIsThemeColor(color)) return color;
   if (color === "primary") {
     color = "themePrimary";
@@ -23,7 +27,7 @@ export const getHexColor = function(color: string): string {
   if (color === "tertiary") {
     color = "themeTertiary";
   }
-  return getThemeValue("palette." + color, color);
+  return getThemeValue(namespace + "." + color, color);
 };
 export const checkIsThemeColor = function(color: ThemeColor | string): boolean {
   if (!color) return false;
@@ -51,11 +55,18 @@ export default class ThemeColorPicker extends React.PureComponent<ThemeColorPick
     this.props.onChange(color);
   };
   render() {
+    console.log("Extra Optinos", this.props);
+    let extraOptions =
+      this.props.extraOptions && this.props.extraOptions.length ? this.props.extraOptions : [];
+    // TODO Add polyfill for reverse
+    let [otherOption, ...firstOptions] = options.reverse();
+
+    let allOptions = [...firstOptions.reverse(), ...extraOptions, otherOption];
     return (
       <StyledContainer>
         <Dropdown
           label={this.props.label}
-          options={options}
+          options={allOptions}
           selectedKey={this.state.dropdownValue}
           onChanged={this.onDropdownChange}
           disabled={this.props.disabled}
@@ -77,6 +88,7 @@ export interface ThemeColorPickerProps {
   label?: string;
   onChange: (value: string) => void;
   disabled?: boolean;
+  extraOptions?: { key: string; text: string }[];
 }
 const _getOtherColorValue = function(propValue = "primary") {
   // If the color string is passed in as the value, there will be no option matches

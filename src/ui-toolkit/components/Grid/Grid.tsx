@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import styled from "styled-components";
+import styled from "ui-toolkit/styled-components";
 
 declare global {
   interface Window {

@@ -1,6 +1,7 @@
 import React from "react";
-import styled from "styled-components";
+import styled from "ui-toolkit/styled-components";
 import Link from "./Link";
+import { getThemeValue } from "../PortalsThemeProvider/PortalsThemeProvider";
 
 const CLASS_NAME = "tags";
 
@@ -39,9 +40,15 @@ const StyledTags = styled.div`
 
 const StyledTag = styled.div`
   font-size: 12px;
-  color: ${(props) => props.theme.palette.accent};
+  color: ${(props) => getThemeValue("palette.accent", "#2b88d8")};
   margin-right: 15px;
   a {
-    color: ${(props) => props.theme.palette.accent};
+    color: ${(props) => getThemeValue("palette.accent", "#2b88d8")};
+  }
+  .ignore-variant & {
+    color: ${(props) => getThemeValue("global.accent", "#2b88d8")};
+    a {
+      color: ${(props) => getThemeValue("global.accent", "#2b88d8")};
+    }
   }
 `;

@@ -1,24 +1,25 @@
 import React from "react";
-import styled from "styled-components";
+import styled from "ui-toolkit/styled-components";
 import Shave from "../Shave/Shave";
+import { getThemeValue } from "../PortalsThemeProvider/PortalsThemeProvider";
+import useShave from "ui-toolkit/hooks/useShave";
 
 const CLASS_NAME = "card-description";
-export default function CardDescription({ children, className = "", as = "p", shave = 100 }) {
+export default function CardDescription({ children, className = "", as = "p", shave = 0 }) {
   let cssClass = [CLASS_NAME, className].filter(Boolean).join(" ");
+  let [shaveProps] = useShave(shave);
   return (
-    <Shave
-      enabled={shave > 0}
-      maxHeight={shave}
-      el={as}
-      className={cssClass}
-      style={{ padding: "10px 0" }}
-    >
+    <StyledDescription className={cssClass} as={as} {...shaveProps}>
       {children}
-    </Shave>
+    </StyledDescription>
   );
 }
 
 const StyledDescription = styled.p`
   /* font-weight: 200; */
   padding: 10px 0;
+  color: ${(props) => getThemeValue("semanticColors.bodyText", "#333")};
+  .ignore-variant & {
+    color: ${(props) => getThemeValue("global.bodyText", "#333")};
+  }
 `;

@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled from "ui-toolkit/styled-components";
 import Link from "./Link";
 
 const CLASS_NAME = "background-image";
@@ -40,6 +40,7 @@ const StyledImageContainer = styled.div`
   div.img {
     background-size: cover;
     height: 100%;
+    width: 100%;
     background-position: center;
     display: flex;
     justify-content: center;

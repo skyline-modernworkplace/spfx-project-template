@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-export default function usePaging(totalPages: number, defaultPage = 1) {
-  let [currentPage, setCurrentPage] = useState(defaultPage);
+export function usePaging(totalPages: number, initialPage = 1) {
+  let [currentPage, setCurrentPage] = useState(initialPage);
 
   let goBack = () => {
     let newPage = currentPage - 1;
@@ -26,3 +26,19 @@ export default function usePaging(totalPages: number, defaultPage = 1) {
     goTo,
   };
 }
+
+export const usePagedItems = function(allItems, numItems, intialPage = 1) {
+  let paging = usePaging(allItems.length, intialPage);
+  let startIndex = paging.currentPage - 1;
+  let endIndex = startIndex + numItems;
+  let isWrapping = endIndex > allItems.length;
+
+  let items = allItems.slice(startIndex, endIndex);
+  if (isWrapping) {
+    items = [...items, ...allItems.slice(0, endIndex - allItems.length)];
+  }
+
+  return [items, paging];
+};
+
+export default usePaging;

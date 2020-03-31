@@ -3,7 +3,7 @@ import { Panel, PanelType } from "office-ui-fabric-react/lib/Panel";
 import { IconButton } from "office-ui-fabric-react/lib/Button";
 import { initializeIcons } from "@uifabric/icons";
 import { HyperLink } from "../primitives/Link";
-import styled from "styled-components";
+import styled from "ui-toolkit/styled-components";
 
 initializeIcons();
 
@@ -17,13 +17,18 @@ const getPanelSize = (size) => {
   if (size === "large") {
     return PanelType.large;
   }
+  if (typeof size !== "string") {
+    return PanelType.custom;
+  }
   return PanelType.medium;
 };
 
-const renderNavigation = (panelTitle: string, onDismiss: () => void) => {
+const renderNavigation = (panelTitle: string, href: string, onDismiss: () => void) => {
   return (
     <div className="panel-navigation">
-      <span className="panel-title">{panelTitle}</span>
+      <HyperLink href={href} target="_blank" className="panel-title">
+        {panelTitle}
+      </HyperLink>
       <IconButton iconProps={{ iconName: "ChromeClose" }} onClick={onDismiss} />
     </div>
   );
@@ -56,7 +61,6 @@ function PanelLink({
   const closePanel = () => setIsOpen(false);
   return (
     <>
-      {/* <StyledLink onClick={handleLinkClick}>{children}</StyledLink> */}
       <HyperLink {...additionalProps} href={href} onClick={handleLinkClick}>
         {children}
       </HyperLink>
@@ -65,7 +69,8 @@ function PanelLink({
         onDismiss={closePanel}
         isLightDismiss
         type={getPanelSize(panelSize)}
-        onRenderNavigation={() => renderNavigation(title, closePanel)}
+        customWidth={typeof panelSize !== "string" ? panelSize + "px" : undefined}
+        onRenderNavigation={() => renderNavigation(title, href, closePanel)}
         onRenderBody={() => renderContent(href)}
       ></StyledPanel>
     </>
@@ -76,7 +81,7 @@ export default React.memo(PanelLink);
 export interface PanelLinkProps {
   href: string;
   title?: string;
-  panelSize?: "small" | "medium" | "large";
+  panelSize?: "small" | "medium" | "large" | number;
   children?: any;
   [key: string]: any;
 }
@@ -88,13 +93,16 @@ const StyledPanel = styled(Panel)`
     padding: 10px;
     max-height: 52px;
     background: ${(props) => props.theme.palette.themePrimary};
-    color: white;
     .panel-title {
+      color: white;
       font-size: 24px;
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
       margin-right: 15px;
+      &:hover {
+        opacity: 0.6;
+      }
     }
     button {
       color: white;

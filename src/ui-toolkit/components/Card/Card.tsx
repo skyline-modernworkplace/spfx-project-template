@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled from "ui-toolkit/styled-components";
 import Link from "../primitives/Link";
 import Title from "../primitives/Title";
 import CardDescription from "./CardDescription";
@@ -8,6 +8,7 @@ import Info from "../primitives/Info";
 import CardImage from "./CardImage";
 import CardFooter from "./CardFooter";
 import Grid from "../Grid/Grid";
+import { getThemeValue } from "../PortalsThemeProvider/PortalsThemeProvider";
 
 const CLASS_NAME = "card-ui-toolkit";
 
@@ -24,7 +25,9 @@ export default class Card extends React.PureComponent<CardProps, {}> {
   render() {
     let { className = "", children, centered, ...additionalProps } = this.props;
 
-    let cssClass = [CLASS_NAME, centered ? "centered" : "", className].filter(Boolean).join(" ");
+    let cssClass = [CLASS_NAME, centered ? "centered" : "", "ignore-variant", className]
+      .filter(Boolean)
+      .join(" ");
 
     return (
       <StyledCard {...additionalProps} className={cssClass}>
@@ -45,6 +48,8 @@ const StyledCard = styled.div`
   display: inline-flex;
   flex-direction: column;
   /* justify-content: space-evenly; */
+  color: ${(props) => getThemeValue("global.bodyText", "black")};
+  background: ${(props) => getThemeValue("global.bodyBackground", "white")};
   border: 1px solid ${(props) => props.theme.semanticColors.variantBorder};
   border-radius: 5px;
     overflow: hidden;

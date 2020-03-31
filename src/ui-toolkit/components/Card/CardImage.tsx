@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled from "ui-toolkit/styled-components";
 import BackgroundImage from "../primitives/BackgroundImage";
 
 const CLASS_NAME = "card-image";

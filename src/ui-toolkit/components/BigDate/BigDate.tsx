@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled from "ui-toolkit/styled-components";
 import { format, isValid } from "date-fns";
 
 const CLASS_NAME = "big-date";

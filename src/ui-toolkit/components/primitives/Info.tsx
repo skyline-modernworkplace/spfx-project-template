@@ -1,5 +1,6 @@
 import React from "react";
-import styled from "styled-components";
+import styled from "ui-toolkit/styled-components";
+import { getThemeValue } from "../PortalsThemeProvider/PortalsThemeProvider";
 
 const CLASS_NAME = "info-ui-toolkit";
 
@@ -29,4 +30,7 @@ const StyledInfo = styled.div`
   color: ${(props) => props.theme.semanticColors.bodySubtext};
   display: inline-block;
   font-size: 12px;
+  .ignore-variant & {
+    color: ${(props) => getThemeValue("global.bodySubtext", "#a19f9d")};
+  }
 `;

@@ -1,6 +1,6 @@
 import React from "react";
 import Card from "./Card";
-import styled from "styled-components";
+import styled from "ui-toolkit/styled-components";
 import { useView, Compiler, Editor, Error, ActionButtons } from "react-view";
 import presetTypescript from "@babel/preset-typescript";
 export default function CardDemo() {
@@ -17,7 +17,7 @@ export default function CardDemo() {
 </Card>
     `,
     scope: { Card: Card, items: [{ title: "title one" }] },
-    onUpdate: console.log
+    onUpdate: console.log,
   });
   return (
     <>
@@ -53,9 +53,7 @@ export default function CardDemo() {
         </Card>
 
         <Card>
-          <Card.Title url="https://skyline.visualstudio.com/">
-            I am an external link
-          </Card.Title>
+          <Card.Title url="https://skyline.visualstudio.com/">I am an external link</Card.Title>
           <Card.Description>I should open in a new tab</Card.Description>
         </Card>
 
@@ -68,16 +66,10 @@ export default function CardDemo() {
         </Card>
 
         <Card>
-          <Card.Tags
-            tags={[
-              { label: "ReadOnly Tag" },
-              { label: "Clickable Tag", url: "#" }
-            ]}
-          />
+          <Card.Tags tags={[{ label: "ReadOnly Tag" }, { label: "Clickable Tag", url: "#" }]} />
           <Card.Title>Card w/ Tags as prop</Card.Title>
           <Card.Description>
-            This card passes the tags in as an array of objects with a label and
-            a url.
+            This card passes the tags in as an array of objects with a label and a url.
           </Card.Description>
         </Card>
 
@@ -89,17 +81,14 @@ export default function CardDemo() {
             <Card.Info>35 views</Card.Info>
           </div>
 
-          <Card.Description>
-            This card displays some metadata values in grey text
-          </Card.Description>
+          <Card.Description>This card displays some metadata values in grey text</Card.Description>
         </Card>
 
         <Card>
           <Card.Title>Card with metadata in Footer</Card.Title>
 
           <Card.Description>
-            This card displays some metadata values in grey text inside the card
-            footer.
+            This card displays some metadata values in grey text inside the card footer.
           </Card.Description>
 
           <Card.Footer>
@@ -111,9 +100,7 @@ export default function CardDemo() {
         <Card>
           <Card.Image src="https://picsum.photos/id/915/200/300"></Card.Image>
           <Card.Title>Some Beautiful Trees</Card.Title>
-          <Card.Description>
-            Basic example of showing an image on a card
-          </Card.Description>
+          <Card.Description>Basic example of showing an image on a card</Card.Description>
         </Card>
 
         <Card>
@@ -124,21 +111,17 @@ export default function CardDemo() {
           <Card.Title>Some Beautiful Trees with a clickable image</Card.Title>
 
           <Card.Description>
-            Shows how you can pass a url prop to the image so it gets rendered
-            as a link
+            Shows how you can pass a url prop to the image so it gets rendered as a link
           </Card.Description>
         </Card>
 
         <Card>
-          <Card.Image
-            src="https://picsum.photos/id/915/200/300"
-            size={250}
-          ></Card.Image>
+          <Card.Image src="https://picsum.photos/id/915/200/300" size={250}></Card.Image>
           <Card.Title>Some Beautiful Trees w/ an explicit size</Card.Title>
 
           <Card.Description>
-            This is an example of using the size prop on an image to control the
-            height of the image.
+            This is an example of using the size prop on an image to control the height of the
+            image.
           </Card.Description>
         </Card>
 
@@ -150,12 +133,7 @@ export default function CardDemo() {
             url="https://picsum.photos/id/915/200/300"
             src="https://picsum.photos/id/915/200/300"
           ></Card.Image>
-          <Card.Tags
-            tags={[
-              { label: "ReadOnly Tag" },
-              { label: "Clickable Tag", url: "#" }
-            ]}
-          />
+          <Card.Tags tags={[{ label: "ReadOnly Tag" }, { label: "Clickable Tag", url: "#" }]} />
           <Card.Description>
             Shows how you can choose to put something on top of the image.
           </Card.Description>

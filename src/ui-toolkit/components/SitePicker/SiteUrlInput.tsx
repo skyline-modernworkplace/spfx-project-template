@@ -1,6 +1,6 @@
 import * as React from "react";
 import { TextField } from "office-ui-fabric-react/lib/TextField";
-import styled from "styled-components";
+import styled from "ui-toolkit/styled-components";
 
 import * as SPScript from "spscript";
 import { debounce } from "../../core/utils/utils";

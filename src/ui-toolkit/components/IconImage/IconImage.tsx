@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled from "ui-toolkit/styled-components";
 import { Icon } from "office-ui-fabric-react/lib/Icon";
 import { getHexColor } from "../ColorPicker/ThemeColorPicker";
 import BackgroundImage from "../primitives/BackgroundImage";

@@ -12,6 +12,8 @@ export interface PropertyFieldThemeColorProperties {
   onUpdate: (targetProp: string, newValue: any) => void;
   value: string;
   label: string;
+  disabled?: boolean;
+  extraOptions?: { key: string; text: string }[];
 }
 
 export interface _PropertyFieldThemeColorProperties
@@ -50,6 +52,8 @@ export default class PropertyFieldThemeColor
       onChange: (newValue) => {
         this.properties.onUpdate(this.targetProperty, newValue);
       },
+      disabled: this.properties.disabled,
+      extraOptions: this.properties.extraOptions,
     };
     var reactComponent = React.createElement(ThemeColorPicker, props);
     ReactDOM.render(reactComponent, elem);

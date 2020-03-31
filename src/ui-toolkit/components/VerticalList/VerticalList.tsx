@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled from "ui-toolkit/styled-components";
 import Thumbnail from "../primitives/Thumbnail";
 import Title from "../primitives/Title";
 import Tags, { Tag } from "../primitives/Tags";

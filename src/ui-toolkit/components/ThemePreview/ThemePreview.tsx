@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled from "ui-toolkit/styled-components";
 import { Pivot, PivotItem } from "office-ui-fabric-react/lib/Pivot";
 import { getPortalsTheme } from "../PortalsThemeProvider/PortalsThemeProvider";
 import { TextField } from "office-ui-fabric-react/lib/TextField";

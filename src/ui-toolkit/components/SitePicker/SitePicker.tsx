@@ -2,7 +2,7 @@ import * as React from "react";
 import SiteChoiceGroup, { SiteChoiceType } from "./siteChoiceGroup";
 import SiteUrlInput from "./SiteUrlInput";
 import { getCurrentWebUrl as getCurrentSiteUrl } from "../../core/utils/sharepointUtils";
-import styled from "styled-components";
+import styled from "ui-toolkit/styled-components";
 
 const checkIsThisSite = function(siteUrl, currentSiteUrl) {
   return !siteUrl || siteUrl.toLowerCase() === currentSiteUrl.toLowerCase();

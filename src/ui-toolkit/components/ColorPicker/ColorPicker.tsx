@@ -3,7 +3,7 @@ import React from "react";
 import { ColorPicker as FabricColorPicker } from "office-ui-fabric-react/lib/ColorPicker";
 import { TextField } from "office-ui-fabric-react/lib/TextField";
 import { Callout, DirectionalHint } from "office-ui-fabric-react/lib/Callout";
-import styled from "styled-components";
+import styled from "ui-toolkit/styled-components";
 import { getThemeValue } from "../PortalsThemeProvider/PortalsThemeProvider";
 export default class ColorPicker extends React.PureComponent<ColorPickerProps, ColorPickerState> {
   elem: HTMLDivElement;

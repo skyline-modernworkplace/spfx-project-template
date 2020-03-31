@@ -1,7 +1,8 @@
 import React from "react";
-import styled from "styled-components";
+import styled from "ui-toolkit/styled-components";
 import { parse as parseUrl } from "url";
 import PanelLink from "../PanelLink/PanelLink";
+import { getThemeValue } from "../PortalsThemeProvider/PortalsThemeProvider";
 
 const CLASS_NAME = "custom-link";
 export interface LinkProps {
@@ -55,9 +56,15 @@ export default Link;
 const StyledLink = styled.a`
   text-decoration: none;
   padding: 0;
-  color: ${(props) => props.theme.semanticColors.link};
+  color: ${(props) => getThemeValue("semanticColors.link", "#0078d4")};
   &:hover {
-    color: ${(props) => props.theme.semanticColors.linkHovered};
+    color: ${(props) => getThemeValue("semanticColors.linkHovered", "#005a9e")};
+  }
+  .ignore-variant & {
+    color: ${(props) => getThemeValue("global.link", "#0078d4")};
+    &:hover {
+      color: ${(props) => getThemeValue("global.linkHovered", "#005a9e")};
+    }
   }
 `;
 
