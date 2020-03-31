@@ -1,4 +1,3 @@
-
 "use strict";
 
 // check if gulp dist was called
@@ -18,8 +17,8 @@ build.configureWebpack.mergeConfig({
       disableMinimizeForCss(generatedConfiguration.module.rules);
     }
     generatedConfiguration.resolve.alias = {
-      "styled-components": path.resolve("node_modules/styled-components"),
-      react: path.resolve("node_modules/react"),
+      "ui-toolkit": path.resolve(__dirname, "./lib/ui-toolkit/"),
+      utils: path.resolve(__dirname, "./lib/utils/"),
     };
     return generatedConfiguration;
   },
