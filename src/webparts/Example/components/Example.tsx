@@ -7,10 +7,9 @@ import { IReadonlyTheme } from "@microsoft/sp-component-base";
 import {
   useSiteData,
   Loading,
-  InvalidSitePlaceholder,
   validateListExists
 } from "../../../ui-toolkit/hooks/useSiteData";
-import PortalsThemeProvider from "../../../ui-toolkit/components/PortalsThemeProvider/PortalsThemeProvider";
+import { PortalsThemeProvider } from "../../../ui-toolkit/components/PortalsThemeProvider/PortalsThemeProvider";
 
 function Example(props: ExampleProps) {
   let { data, isLoading, validation } = useSiteData<DemoData>({
@@ -24,7 +23,7 @@ function Example(props: ExampleProps) {
   const renderContent = () => {
     if (isLoading) return <Loading />;
     if (!validation.isValid)
-      return <InvalidSitePlaceholder message="Sorry couldn't find that list on that site" />;
+      return <div>Sorry couldn't find that list on that site" </div>;
     return (
       <div>
         <h4>Site Pages Count</h4>
@@ -52,7 +51,7 @@ export interface ExampleProps {
         updateProperty: (key:string, value:string) => void,
         webUrl: string,
         theme: IReadonlyTheme;
-    },
+    };
 }
 
 // TODO: Delete this. You'll have your own async Data Access function
