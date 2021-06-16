@@ -1,0 +1,101 @@
+export const metadata = {
+  parent: "inputs",
+};
+
+import { PropsTable } from "docs";
+
+# Editable
+
+A component that allows toggling between "Display" and "Edit" modes.
+
+```tsx live=true bordered=true
+() => {
+  let [value, setValue] = React.useState("I am an Editable Title!");
+  let [canEdit, setCanEdit] = React.useState(true);
+
+  return (
+    <div>
+      <label htmlFor="canEdit">
+        Can Edit?
+        <input
+          type="checkbox"
+          name="canEdit"
+          checked={canEdit}
+          onChange={(e) => setCanEdit(e.target.checked)}
+        />
+      </label>
+
+      <Editable value={value} onChange={setValue} element="h1" canEdit={canEdit} />
+    </div>
+  );
+};
+```
+
+<PropsTable name="EditableProps" />
+
+## Basic Usage
+
+By default it will use a `div`, with plain text for the `contentType` and assume anyone can edit.
+
+```tsx live=true bordered=true
+() => {
+  let [value, setValue] = React.useState("You can edit me!");
+  return <Editable value={value} onChange={setValue} />;
+};
+```
+
+## Custom Elements
+
+You can pass any element type you'd like using
+
+```tsx live=true bordered=true
+() => {
+  let [value, setValue] = React.useState("I am an Editable Title!");
+  return <Editable value={value} onChange={setValue} element="h1" />;
+};
+```
+
+## HTML instead of text
+
+Sometimes you might be dealing with HTML instead of plain text
+
+```tsx live=true bordered=true
+() => {
+  let html = `<ul><li>One</li><li>Two</li></ul>`;
+  let [value, setValue] = React.useState(html);
+  return (
+    <div>
+      <Editable value={value} onChange={setValue} contentType="html" />
+      <pre>{value}</pre>
+    </div>
+  );
+};
+```
+
+## Control who sees the Edit Buttons
+
+You can use the `canEdit` prop to specify whether a user should see the edit buttons. For example, you might check the current user's permissions
+and make a decision on whether they should see the edit buttons.
+
+```tsx live=true bordered=true
+() => {
+  let [value, setValue] = React.useState("Sussex, WI");
+  let [canEdit, setCanEdit] = React.useState(true);
+
+  return (
+    <div>
+      <label htmlFor="canEdit">
+        Can Edit?
+        <input
+          type="checkbox"
+          name="canEdit"
+          checked={canEdit}
+          onChange={(e) => setCanEdit(e.target.checked)}
+        />
+      </label>
+
+      <Editable value={value} onChange={setValue} element="h2" canEdit={canEdit} />
+    </div>
+  );
+};
+```

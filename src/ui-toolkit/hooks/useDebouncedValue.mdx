@@ -1,0 +1,35 @@
+import { PropsTable } from "docs";
+
+# useDebouncedValue
+
+A hook that stores a value in state, but only allows state updates after the specified amount of time has passed.
+
+[Blog Post Explanation](https://dev.to/droopytersen/usedebouncedeffect-hook-4204);
+
+```tsx
+import { useDebouncedValue } from "ui-toolkit";
+
+let debouncedValue = useDebouncedValue(value, 300);
+```
+
+## Usage
+
+Checkout <b>useDebouncedEffect</b> too, that may save you some boilerplate.
+
+```jsx
+function SearchBox({ onChange, defaultValue = "" }) {
+  // We store one value for the instant updates
+  let [value, setValue] = useState(defaultValue);
+  // We use our new hook to track a value that only changes
+  // when the user stops typing
+  let debouncedValue = useDebouncedValue(value, 300);
+
+  // We perform an effect anytime the user stops typing
+  useEffect(() => {
+    console.log("Firing onchange", debouncedValue);
+    onChange(debouncedValue);
+  }, [debouncedValue]);
+
+  return <input value={value} onChange={(e) => setValue(e.target.value)} />;
+}
+```

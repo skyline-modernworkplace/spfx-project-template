@@ -1,0 +1,76 @@
+import IconImage from "./IconImage.tsx";
+import { PropsTable, Showcase } from "docs";
+
+# Icon Image
+
+```tsx
+import { IconImage } from "ui-toolkit";
+```
+
+A component for rendering either a Fabric icon or an image that crops to whatever size you specify. Also supports an optional circle prop for changing the shape to a circle(width and height have to be equal).
+
+If a Fabric icon name is provided to the icon property then it will render an icon, if an image url is provided then it will render the image instead.
+
+<Showcase>
+  <div
+    style={{ width: "100%", display: "flex", justifyContent: "space-around", textAlign: "center" }}
+  >
+    <div>
+      <IconImage icon="vacation" />
+      Fabric Icon
+    </div>
+    <div>
+      <IconImage
+        icon="https://images.vexels.com/media/users/3/135694/isolated/preview/ea8854b19670e0a1710f6684f969519b-colorful-code-web-icon-by-vexels.png"
+        backgroundColor="steelblue"
+      />
+      Transparent Image
+    </div>
+    <div>
+      <IconImage
+        icon="https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+        circle
+      />
+      Circle
+    </div>
+  </div>
+</Showcase>
+
+## Props
+
+<PropsTable name="IconImageProps" />
+
+## Basic Usage
+
+```tsx live=true bordered=true
+<div
+  style={{ width: "100%", display: "flex", justifyContent: "space-around", textAlign: "center" }}
+>
+  <div>
+    <IconImage icon="vacation" />
+    Fabric Icon
+  </div>
+  <div>
+    <IconImage
+      icon="https://images.vexels.com/media/users/3/135694/isolated/preview/ea8854b19670e0a1710f6684f969519b-colorful-code-web-icon-by-vexels.png"
+      backgroundColor="steelblue"
+    />
+    Transparent Image
+  </div>
+  <div>
+    <IconImage
+      icon="https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+      circle
+    />
+    Circle
+  </div>
+</div>
+```
+
+## Using As A Link
+
+```tsx live=true bordered=true
+<Link href="https://www.google.com/" target="_blank" title="Google">
+  <IconImage icon="vacation" />
+</Link>
+```

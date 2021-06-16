@@ -1,0 +1,56 @@
+import Text from "./Text.tsx";
+import { PropsTable, Showcase } from "docs";
+
+# Text
+
+```typescript
+import { Text } from "ui-toolkit";
+```
+
+A component that takes care of rendering text with the <b>proper colors based on the theme and section background</b>.
+
+- You can specify any valid CSS color or theme parameter (semantic or palette).
+- If you specify a theme color and the section background changes colors, the text will automatically update appropriately.
+- There is also logic to
+  pull the color from the `global` namespace if any parent element has the `ignore-variant` class.
+
+<Showcase style={{ display: "block" }}>
+  <Text color="steelblue">I am some nice blue text.</Text>
+  <Text color="#f00">I am ugly red text.</Text>
+  <Text color="themePrimary">ThemePrimary</Text>
+  <Text color="bodyText">Body Text</Text>
+  <Text color="bodySubtext">Body Sub Text</Text>
+</Showcase>
+
+## Props
+
+<PropsTable name="TextProps" />
+
+## Specific Colors
+
+You can pass either valid CSS colors (hex, rgb, etc...) or a theme param (themePrimary, bodyText, etc...).
+
+```tsx live=true bordered=true
+<div>
+  <Text color="steelblue">I am some nice blue text.</Text>
+  <Text color="#f00">I am ugly red text.</Text>
+  <Text color="themePrimary">ThemePrimary</Text>
+  <Text color="bodyText">Body Text</Text>
+  <Text color="bodySubtext">Body Sub Text</Text>
+</div>
+```
+
+## Specific Elements
+
+You can use the `as` prop to render the text as a specific HTML (or custom) element.
+
+```tsx live=true bordered=true
+<>
+  <Text color="themePrimary" as="h1">
+    A Heading
+  </Text>
+  <Text color="bodyText" as="p">
+    Body Text
+  </Text>
+</>
+```

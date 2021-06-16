@@ -1,7 +1,9 @@
 import _styled, { ThemeProvider as SCThemeProvider } from "styled-components";
 
+// Global Decarlartions to make Typescript happy
 declare var SC_PREFIX: string;
 declare var process: any;
+
 const getPrefix = () => {
   try {
     // console.log("PROCESS", process.env.SC_PREFIX);
@@ -158,7 +160,11 @@ var domElements = [
 
 // let styled = _styled;
 domElements.forEach((key) => {
-  styled[key] = _styled[key].withConfig({ displayName: PREFIX });
+  try {
+    styled[key] = _styled[key].withConfig({ displayName: PREFIX });
+  } catch {
+    console.log("Styled Components doesn't recognize element type: ", key);
+  }
 });
 
 export default styled as any;

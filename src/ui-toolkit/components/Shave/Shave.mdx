@@ -1,0 +1,72 @@
+export const metadata = {
+  parent: "utilities",
+};
+
+import { PropsTable, Showcase } from "docs";
+
+# Shave
+
+A component that truncates multi-line text to fit within an html element based on a set max-height.
+
+```javascript
+import { Shave } from "ui-toolkit";
+```
+
+```jsx live=true
+<Card style={{ maxWidth: "300px" }}>
+  <Card.Title>Shaved Description</Card.Title>
+  <Shave maxHeight={70}>
+    Shave is a zero dependency javascript plugin that truncates multi-line text to fit within an
+    html element based on a set max-height. It then stores the diff of the original text string in a
+    hidden element following the visible text. This means the original text remains intact!
+  </Shave>
+</Card>
+```
+
+Leverages [Shave.js](https://dollarshaveclub.github.io/shave/) under the hood.
+
+## Props
+
+<PropsTable name="ShaveProps" />
+
+## Control the element
+
+You can control the element that is use (DIV, SPAN etc...) using the `el` prop.
+
+```jsx live=true
+<Card style={{ maxWidth: "300px" }}>
+  <Card.Title>Shaved Description</Card.Title>
+  <Shave maxHeight={70} el="p">
+    Shave is a zero dependency javascript plugin that truncates multi-line text to fit within an
+    html element based on a set max-height. It then stores the diff of the original text string in a
+    hidden element following the visible text. This means the original text remains intact!
+  </Shave>
+</Card>
+```
+
+## Toggle Example
+
+You can toggle the shave on an off using the `enabled` prop.
+
+```jsx live=true
+() => {
+  let [isShaved, setIsShaved] = React.useState(true);
+
+  return (
+    <Card style={{ maxWidth: "300px" }}>
+      <Card.Title>Shaved Description</Card.Title>
+      <Shave maxHeight={70} enabled={isShaved}>
+        Shave is a zero dependency javascript plugin that truncates multi-line text to fit within an
+        html element based on a set max-height. It then stores the diff of the original text string
+        in a hidden element following the visible text. This means the original text remains intact!
+      </Shave>
+
+      <Card.Footer>
+        <button onClick={() => setIsShaved(!isShaved)}>
+          {isShaved ? "Show More" : "Show Less"}
+        </button>
+      </Card.Footer>
+    </Card>
+  );
+};
+```

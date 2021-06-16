@@ -1,0 +1,23 @@
+export const metadata = {
+  parent: "inputs",
+};
+
+import { PropsTable } from "docs";
+
+# SitePicker
+
+A component that lets you pick between "This Site" or choose another site.
+
+- Allows toggling between "This Site" and "Other"
+- Only triggers an onChange if the url is valid
+
+This is the React component that drives the `PropertyFieldSitePicker`
+
+```tsx live=true bordered=true
+() => {
+  let [site, setSite] = React.useState("https://skylinespark.sharepoint.com/sites/apps");
+  console.log("site", site);
+
+  return <SitePicker value={site} onChange={setSite} />;
+};
+```

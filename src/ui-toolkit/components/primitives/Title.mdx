@@ -1,0 +1,38 @@
+import Title from "./Title.tsx";
+import { PropsTable, Showcase } from "docs";
+
+# Title
+
+```typescript
+import { Title } from "ui-toolkit";
+```
+
+A component that takes care of rendering a Heading while optionally supporting a `url` prop that will cause it to render as a link.
+
+<Showcase>
+  <Title url="#">This is a default title</Title>
+</Showcase>
+
+## Props
+
+<PropsTable name="TitleProps" />
+
+## Basic Usage
+
+```tsx live=true bordered=true
+<div>
+  <Title>I am a title</Title>
+  <Title as="h1">I am a big title</Title>
+  <Title url="/">I am a title with a link</Title>
+</div>
+```
+
+## Advanced
+
+Just like `Text`, you can pass a `color` prop that supports CSS colors or theme params.
+
+```tsx live=true bordered=true
+<Title url="/" as="h1" color="themeSecondary">
+  I am a title with a link
+</Title>
+```

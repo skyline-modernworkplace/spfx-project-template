@@ -1,6 +1,6 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
-import ThemeColorPicker from "../../components/ColorPicker/ThemeColorPicker";
+import React from "react";
+import ReactDOM from "react-dom";
+import ThemeColorPicker from "../../components/inputs/ThemeColorPicker";
 
 import {
   IPropertyPaneField,

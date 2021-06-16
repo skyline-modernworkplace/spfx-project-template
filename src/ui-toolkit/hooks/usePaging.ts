@@ -24,10 +24,10 @@ export function usePaging(totalPages: number, initialPage = 1) {
     goForward,
     goBack,
     goTo,
-  };
+  } as PagingContext;
 }
 
-export const usePagedItems = function(allItems, numItems, intialPage = 1) {
+export const usePagedItems = function (allItems, numItems, intialPage = 1) {
   let paging = usePaging(allItems.length, intialPage);
   let startIndex = paging.currentPage - 1;
   let endIndex = startIndex + numItems;
@@ -42,3 +42,14 @@ export const usePagedItems = function(allItems, numItems, intialPage = 1) {
 };
 
 export default usePaging;
+
+export interface PagingContext {
+  /** Go backwards one page. If you go below page 1, you will be sent to the last page. */
+  goBack: () => void;
+  /** Go forwards one page. If you exceed the max page, it will go back to the first page. */
+  goForward: () => void;
+  /** Jump to a specific page number */
+  goTo: (page: number) => void;
+  /** The current page in state */
+  currentPage: number;
+}

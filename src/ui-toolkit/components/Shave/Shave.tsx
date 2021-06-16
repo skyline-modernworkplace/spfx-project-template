@@ -23,14 +23,18 @@ const CLASS_NAME = "shaved";
 
 export interface ShaveProps {
   // props
+  /** The max height of the element. The component will fit as many lines of text as it can. */
+  maxHeight: number;
+  /** Default is div. The type of element to use */
   el?: any;
-  maxHeight?: number;
+  /** Default is true. Allows you to toggle the shave on and off */
   enabled?: boolean;
+  /** Class name for CSS overrides */
   className?: string;
   [key: string]: any;
 }
 
-const Shave: React.FC<ShaveProps> = ({
+export const Shave: React.FC<ShaveProps> = ({
   el = "div",
   enabled = true,
   maxHeight = 100,

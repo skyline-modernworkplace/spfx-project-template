@@ -1,0 +1,46 @@
+export const metadata = {
+  parent: "surfaces",
+};
+
+import { PropsTable } from "docs";
+
+# LinkTile
+
+Featured Link tile.
+
+- Supports passing an Fabric Icon or an Image Url
+- Renders an overlay caption use the content from `children`
+- Allows control over background, icon, text, and hover colors (theme param or CSS color)
+
+```jsx live=true
+<LinkTile href="https://www.google.com" icon="vacation">
+  Google
+</LinkTile>
+```
+
+<PropsTable name="LinkTileProps" />
+
+## Disabled Hover overlay
+
+You can disable the slide up hover effect
+
+```jsx live=true
+<LinkTile href="https://www.google.com" icon="vacation" showHoverOverlay={false}>
+  Google
+</LinkTile>
+```
+
+## Image with Transparent Overlay
+
+```jsx live=true
+<LinkTile
+  href="google.com"
+  icon="https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+  width={250}
+  height={200}
+  iconColor="white"
+  hoverColor={"rgba(0,0,0,.5)"}
+>
+  <h3>Alfa Romeo 4c</h3>
+</LinkTile>
+```

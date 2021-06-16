@@ -1,0 +1,73 @@
+import { PropsTable } from "docs";
+import { useAsyncData } from "ui-toolkit";
+import SPScript from "spscript";
+
+# useAsyncData
+
+Helps manage data fetching inside a React component.
+
+1. Pass in any async Function.
+2. Pass in the arguments to that asyncFn
+3. The hook takes care of calling the Async function when the args have changed
+
+```tsx
+// Import
+import { useAsyncData } from "ui-toolkit";
+
+// Basic Usage
+let { data, isLoading, error } = useAsyncData(getNews, [siteUrl, numItems], []);
+
+// Usage with typing so we'll know 'data' is NewsPage[].
+let { data, isLoading, error } = useAsyncData<NewsPage[]>(getNews, [siteUrl, numItems], []);
+```
+
+## Params
+
+<PropsTable
+  properties={[
+    {
+      name: "asyncFn",
+      type: `(...args) => Promise<T>`,
+      description:
+        "Any async function. The result of the function will be return on the 'data' property.",
+      isRequired: "Required",
+    },
+    {
+      name: "args",
+      type: `[...args]`,
+      description:
+        "An array of all the parameters that should be passed to the asyncFn.  If any of these params, change, the async function will be called again.",
+      isRequired: "Required",
+    },
+    {
+      name: "initialValue",
+      type: `T`,
+      description: "The initial value for 'data'.",
+      isRequired: "Optional",
+    },
+  ]}
+/>
+
+## Return value
+
+You get an object with the following properties:
+
+<PropsTable name="AsyncDataState" />
+
+## Usage Example
+
+```tsx
+function NewsGrid({ siteUrl, numItems }) {
+
+    let { data, isLoading, error } = useAsyncData<NewsPage[]>(api.getNews, [siteUrl, numItems])
+
+    if (isLoading) return <div>Loading...</div>
+    if (error) return <div>Uh Oh!</div>
+
+    return (
+        <Grid>
+         { data.map(item => <NewsCard item={item} /> }
+        </Grid>
+    )
+}
+```

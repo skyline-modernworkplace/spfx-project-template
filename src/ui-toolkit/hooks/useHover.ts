@@ -3,10 +3,9 @@ import { useState, useRef, useEffect } from "react";
 export default function useHover(hoverRef: React.MutableRefObject<Element>) {
   const [isHovered, setIsHovered] = useState(false);
 
-  const handleMouseOver = () => setIsHovered(true);
-  const handleMouseOut = () => setIsHovered(false);
-
   useEffect(() => {
+    const handleMouseOver = () => setIsHovered(true);
+    const handleMouseOut = () => setIsHovered(false);
     const elem = hoverRef.current;
     if (elem) {
       elem.addEventListener("mouseover", handleMouseOver);

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import useInterval from "./useInterval";
 import useHover from "./useHover";
-import usePaging from "./usePaging";
+import usePaging, { PagingContext } from "./usePaging";
 
 export default function useAutoPaging(totalPages: number, delay = 5000, defaultPage = 1) {
   let { currentPage, goForward, goBack, goTo } = usePaging(totalPages, defaultPage);
@@ -20,12 +20,24 @@ export default function useAutoPaging(totalPages: number, delay = 5000, defaultP
     currentPage,
     goForward,
     goBack,
+    goTo,
     pauseEvents: {
       onMouseEnter: stop,
       onMouseLeave: start,
     },
     startPaging: start,
     stopPaging: stop,
-    goTo,
+  } as AutoPagingContext;
+}
+
+export interface AutoPagingContext extends PagingContext {
+  /** Begin auto paging */
+  startPaging: () => void;
+  /** Pause auto paging */
+  stopPaging: () => void;
+  /** Events to spread onto the element that should pause when hovered */
+  pauseEvents: {
+    onMouseEnter: any;
+    onMouseLeave: any;
   };
 }

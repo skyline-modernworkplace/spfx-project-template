@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import styled from "ui-toolkit/styled-components";
 import Link from "../primitives/Link";
 import Title from "../primitives/Title";
@@ -7,7 +7,7 @@ import Tags, { Tag } from "../primitives/Tags";
 import Info from "../primitives/Info";
 import CardImage from "./CardImage";
 import CardFooter from "./CardFooter";
-import Grid from "../Grid/Grid";
+import { Grid } from "ui-toolkit";
 import { getThemeValue } from "../PortalsThemeProvider/PortalsThemeProvider";
 
 const CLASS_NAME = "card-ui-toolkit";
@@ -38,9 +38,12 @@ export default class Card extends React.PureComponent<CardProps, {}> {
 }
 
 export interface CardProps {
+  /** Optional class name used for style overrides */
   className?: string;
+  /** Center align (horizonatally) the card's content */
   centered?: boolean;
-  styles?: any;
+  /** What to render inside the card */
+  children: ReactNode;
 }
 
 const StyledCard = styled.div`
@@ -52,7 +55,9 @@ const StyledCard = styled.div`
   background: ${(props) => getThemeValue("global.bodyBackground", "white")};
   border: 1px solid ${(props) => props.theme.semanticColors.variantBorder};
   border-radius: 5px;
-    overflow: hidden;
+  overflow: hidden;
+  white-space: normal;
+
   &.centered {
     align-items: center;
     justify-content: center;

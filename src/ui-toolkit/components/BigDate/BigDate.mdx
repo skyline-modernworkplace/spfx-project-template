@@ -1,0 +1,89 @@
+export const metadata = {
+  parent: "surfaces",
+};
+import { BigDate, BigDateRange } from "./BigDate.tsx";
+import { PropsTable, Showcase } from "docs";
+
+# BigDate
+
+```tsx
+import { BigDate, BigDateRange } from "ui-toolkit";
+```
+
+Displays a date nice and big with white text and a text shadows. <b>Looks good over images or
+background colors</b>.
+
+**BigDate**
+
+- The `BigDate` is for when you a single date to display.
+
+**BigDateRange**
+
+- Use `BigDateRange` if you have a start and end date (date range).
+- It requires a `start` date, but will display as a `BigDate` if there is no `end` date given.
+
+```jsx live=true bordered=true
+<Grid size="100px" shouldFlex={false}>
+  <BigDate date={new Date()} />
+  <BigDate date={new Date()} style={{ background: "steelblue" }} />
+  <BigDate date={new Date()} style={{ background: "steelblue", borderRadius: "50%" }} />
+
+  <BigDate date={new Date()} style={{ fontSize: "36px", color: "#387c9c", textShadow: "none" }} />
+  <BigDateRange
+    start={new Date()}
+    end={new Date().setDate(new Date().getDate() + 2)}
+    style={{ background: "steelblue", margin: "5px" }}
+  />
+</Grid>
+```
+
+## BigDate Props
+
+<PropsTable name="BigDateProps" />
+
+## BigDateRange Props
+
+<PropsTable name="BigDateRangeProps" />
+
+## Basic Usage
+
+It's a little lackluster by itself because typically you'd place it over an image or a div with a background color.
+It pairs very will with the `BackgroundImage` component.
+
+```tsx live=true bordered=true
+<BigDate date={new Date()} />
+```
+
+## Date Range Usage
+
+The first option shows usage of the BigDateRange without an end date. A BigDate component will render for us.
+
+```jsx live=true
+() => {
+  let endDate = new Date();
+  return (
+    <div style={{ display: "flex" }}>
+      <BigDateRange start={new Date()} style={{ background: "steelblue", margin: "5px" }} />
+      <BigDateRange
+        start={new Date()}
+        end={endDate.setDate(endDate.getDate() + 2)}
+        style={{ background: "steelblue", margin: "5px" }}
+      />
+    </div>
+  );
+};
+```
+
+## Style Overrides
+
+You can pass a `style` object to style things directly.
+
+```tsx live=true bordered=true
+<Grid size="100px" shouldFlex={false}>
+  <BigDate date={new Date()} style={{ background: "steelblue" }} />
+
+  <BigDate date={new Date()} style={{ background: "steelblue", borderRadius: "50%" }} />
+
+  <BigDate date={new Date()} style={{ fontSize: "36px", color: "#387c9c", textShadow: "none" }} />
+</Grid>
+```

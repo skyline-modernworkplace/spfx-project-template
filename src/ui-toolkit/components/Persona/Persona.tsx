@@ -1,8 +1,11 @@
-import React from "react";
+import * as React from "react";
 import Thumbnail from "../primitives/Thumbnail";
 import Link from "../primitives/Link";
-import styled from "ui-toolkit/styled-components";
+import styled from "../../styled-components";
 import { getSiteUrl } from "../../core/utils/sharepointUtils";
+import Title from "../primitives/Title";
+import Text from "../primitives/Text";
+import { getThemeColor } from "../PortalsThemeProvider/PortalsThemeProvider";
 
 function Persona({
   photo,
@@ -34,9 +37,13 @@ function Persona({
           />
           <div className={"details"}>
             <div className="textWrapper">
-              <div className="title">{title}</div>
-              {subTitle && <div className="subtitle">{subTitle}</div>}
-              {info && <div className="info">{info}</div>}
+              <Title className="title">{title}</Title>
+              {subTitle && (
+                <Text color={"bodySubtext"} className="subtitle">
+                  {subTitle}
+                </Text>
+              )}
+              {info && <Text className="info">{info}</Text>}
             </div>
             {linkUrl && callToAction && (
               <Link href={linkUrl} className="callToAction">
@@ -53,14 +60,45 @@ function Persona({
 export default React.memo(Persona);
 
 export interface PersonaProps {
-  photo?: string;
+  /**
+   * This is the primary text, usually used for a users name.
+   */
   title: string;
+  /**
+   * Renders a circle image
+   */
+  photo: string;
+  /**
+   * This is secondary text, slightly lighter in focus and size than title.
+   */
   subTitle?: string;
+  /**
+   * This is tertiary text, slightly smaller in size than subTitle.
+   */
   info?: string;
+  /**
+   * If provided this will wrap the persona in a link that will open the linkUrl provided in a new tab. If there is also a call to action provided, a button will render in the Persona instead of the whole Persona being clickable.
+   */
   linkUrl?: string;
+  /**
+   * This will render a button with the provided text below the title if and only if a linkUrl is provided.
+   */
   callToAction?: string;
+  /**
+   * Defaults to horizontal, this changes the items orientation to render the details below the photo, 'vertical' or beside it.
+   */
   orientation?: "horizontal" | "vertical";
+  /**
+   * Defaults to 100px, this sets the height and width of the photo to be the same height to maintain the correct aspect ratio
+   */
   photoSize?: string;
+  /**
+   * If you want to tack on your own class name.
+   */
+  className?: string;
+  /**
+   * Control what is used as the Wrapper element. Defaults to DIV.
+   */
   as?: any;
   [key: string]: any;
 }
@@ -73,11 +111,11 @@ const StyledPersonaWrapper = styled.div`
         padding: 10px;
       }
       &:hover > .persona {
-        background: ${(props) => props.theme.palette.themeSecondary};
+        background: ${(props) => getThemeColor("themeSecondary")};
         .title,
         .subtitle,
         .info {
-          color: ${(props) => props.theme.palette.white};
+          color: ${(props) => getThemeColor("white")};
           text-decoration: none;
         }
       }
@@ -87,10 +125,10 @@ const StyledPersonaWrapper = styled.div`
 
 const StyledPersona = styled.div`
   padding: 10px;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   padding: 5px;
-
+  max-width: 100%;
   &.vertical {
     flex-direction: column;
     justify-content: space-around;
@@ -113,25 +151,12 @@ const StyledPersona = styled.div`
     align-items: flex-start;
   }
   .title {
-    color: ${(props) => props.theme.semanticColors.bodyText};
     font-weight: 600;
-    font-size: 15px;
-    line-height: normal;
-  }
-  .subtitle {
-    color: ${(props) => props.theme.semanticColors.bodySubtext};
-    font-size: 13px;
-    line-height: normal;
-  }
-  .info {
-    color: ${(props) => props.theme.semanticColors.bodyText};
-    font-size: 12px;
-    line-height: normal;
   }
   .callToAction {
     margin-top: 10px;
-    color: #fff;
-    background: ${(props) => props.theme.palette.themePrimary};
+    color: ${(props) => getThemeColor("white")};
+    background: ${(props) => getThemeColor("themePrimary")};
     padding: 8px 20px;
     text-decoration: none;
     border-radius: 20px;
@@ -141,10 +166,18 @@ const StyledPersona = styled.div`
     &:hover,
     &:active,
     &:focus {
-      color: #fff;
-      background-color: ${(props) => props.theme.palette.themeSecondary};
+      color: ${(props) => getThemeColor("white")};
+      background: ${(props) => getThemeColor("themeSecondary")};
       outline: none;
       cursor: pointer;
+    }
+    .ignore-variant & {
+      color: ${(props) => getThemeColor("white", false)};
+      background: ${(props) => getThemeColor("themePrimary", false)};
+    }
+    .ignore-variant &:hover {
+      color: ${(props) => getThemeColor("white", false)};
+      background: ${(props) => getThemeColor("themeSecondary", false)};
     }
   }
 `;

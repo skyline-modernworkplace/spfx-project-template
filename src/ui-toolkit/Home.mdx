@@ -1,0 +1,32 @@
+export const metadata = {
+  sort: 1,
+  parent: "",
+};
+
+# Welcome to UI Toolkit!
+
+The PortalsDev UI Toolkit contains a suite of React Components, React Hooks, and core utility functions that are
+reused across all of our projects.
+
+## Source Code
+
+[https://skyline.visualstudio.com/DefaultCollection/Skyline-Portals-Reusables/\_git/ip-designsystem](https://skyline.visualstudio.com/DefaultCollection/Skyline-Portals-Reusables/_git/ip-designsystem)
+
+_AP: As of 4/14 we are in the `mdx-spfx` branch_
+
+\_SO: 6/16/2021 in master branch, github, > ui-toolkit folder
+
+## Developer Workflow
+
+1. Pull down the latest source code
+2. Work on the UI Toolkit code
+3. Update the docs in the associated `.mdx` file
+4. Run `npm run deploy` to deploy the changes to the hosted App in SharePoint
+
+## Commands / Tasks
+
+- `npm run start` - starts a SharePoint Hosted Debug Session
+- `npm run start:offline` - starts a local/offline debugging session
+- `npm run build` - will build the app
+- `npm run deploy` - will deploy the app to `/sites/apps/ClientSideAssets/ui-toolkit/App.aspx`
+- `npm run codegen` - generates the typescript schema and finds all the `.mdx` files to autogenerate the Menu.

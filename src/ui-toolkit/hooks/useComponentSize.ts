@@ -14,6 +14,11 @@ function getSize(el) {
   };
 }
 
+export interface ComponentSizeData {
+  width: number;
+  height: number;
+}
+
 export default function useComponentSize(ref) {
   let [componentSize, setComponentSize] = useState(getSize(ref ? ref.current : {}));
 

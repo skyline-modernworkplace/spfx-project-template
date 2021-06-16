@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import SitePicker from "../../components/SitePicker/SitePicker";
+import { SitePicker } from "ui-toolkit";
 
 import {
   IPropertyPaneField,
@@ -45,7 +45,7 @@ export default class PropertyFieldSitePicker
     if (!this.elem) this.elem = elem;
     // import a React component to handle most of the work
     let props = {
-      siteUrl: this.properties.value,
+      value: this.properties.value,
       label: this.properties.label,
       onChange: (newValue) => {
         this.properties.onUpdate(this.targetProperty, newValue);

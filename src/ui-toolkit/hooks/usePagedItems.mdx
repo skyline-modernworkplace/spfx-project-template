@@ -1,0 +1,64 @@
+import { PropsTable } from "docs";
+
+# usePagedItems
+
+Helps you manage which items should be showing based on the current page and number of items you want to show at once.
+
+- First, pass in the full set of items
+- Then, pass in how many items per page
+- You'll get back an array
+  - The first item is the subset of items to show
+  - The second item is the paging object (to help manipulate the current page)
+- As you manipulate the current page, the items to show will automatically update.
+
+```javascript
+import { usePaging } from "ui-toolkit";
+
+let [itemsToShow, paging] = usePagedItems(items, 10);
+```
+
+It leverages the `usePaging` hook under the covers.
+
+## Params
+
+<PropsTable
+  properties={[
+    {
+      name: "allItems",
+      type: `any[]`,
+      description:
+        "An array of all of your items. You will receive a subset of these items based on the current page.",
+      isRequired: "Required",
+    },
+    {
+      name: "pageSize",
+      type: `number`,
+      description: "The number of items to show at once (on a single page).",
+      isRequired: "Required",
+    },
+    {
+      name: "initialPage",
+      type: `number`,
+      description: "Defaults to 1.",
+      isRequired: "Optional",
+    },
+  ]}
+/>
+
+## Returns
+
+The hook returns an array/tuple.
+
+```javascript
+let [pagedItems, paging] = usePagedItems(allItems, 5);
+```
+
+- The first value is the subset of your items that should show based on the current page
+- The second value is a paging object you can use to manipulate the current page
+  - See the `usePaging` hook
+
+### Paging object
+
+The second value in the returned tuple.
+
+<PropsTable name="PagingContext" />

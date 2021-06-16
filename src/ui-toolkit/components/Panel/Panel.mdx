@@ -1,0 +1,185 @@
+export const metadata = {
+  parent: "surfaces",
+};
+
+import { PropsTable } from "docs";
+
+# usePanel
+
+A hook that helps you create a customized Fabric UI Panel.
+
+Don't actually import and use a `Panel` component, instead use the `usePanel` hook, which returns a `Panel` component.
+
+```javascript
+import { usePanel } from "ui-toolkit";
+
+// The hook returns the Component, the props, and the panel methods you might need
+let { Panel, panelProps, isOpen, openPanel, closePanel } = usePanel();
+```
+
+- It sets up the React state for tracking whether the panel is open and provides methods to open and close.
+- It sets up all the default UI Fabric Panel props for you.
+- It provides the Fabric UI Panel Component so you don't have to mess with importing it.
+- It overrides the default Panel Header to let the Panel content touch the top of the panel.
+- It wires up a specific `PostMessage` listener to that IFramed windows can send the parent a message telling it to close the panel.
+- It provides an extra `url` prop on the `Panel` component so you can easily show an `IFrame` in a Panel.
+
+```jsx live=true bordered=true
+() => {
+  let { Panel, panelProps, isOpen, openPanel, closePanel } = usePanel();
+
+  return (
+    <div>
+      {!isOpen && <button onClick={openPanel}>Open Panel</button>}
+      {isOpen && <button onClick={closePanel}>Close Panel</button>}
+
+      <Panel {...panelProps}>
+        <h1>I am in a panel!</h1>
+        <p>You can put whatever you want in here</p>
+      </Panel>
+    </div>
+  );
+};
+```
+
+## Panel Options Param
+
+The hooks takes an (optional) options object with the following shape.
+
+```jsx
+let { isOpen, panelProps } = usePanel({ size: "large", startOpen: true });
+```
+
+<PropsTable name="PanelOptions" />
+
+## Return Object
+
+The hooks returns an object with the following properties (usually you'll destructure).
+The `panelProps` will implement Fabric's [IPanelProps](https://developer.microsoft.com/en-us/fluentui#/controls/web/panel) interface.
+
+<PropsTable name="UsePanelResult" />
+
+## Custom size
+
+You can pass `size` as a number.
+
+```jsx live=true bordered=true
+() => {
+  let { Panel, panelProps, isOpen, openPanel, closePanel } = usePanel({ size: 1000 });
+
+  return (
+    <div>
+      {!isOpen && <button onClick={openPanel}>Open Panel</button>}
+      {isOpen && <button onClick={closePanel}>Close Panel</button>}
+
+      <Panel {...panelProps}>
+        <h1>I am a custom size!</h1>
+      </Panel>
+    </div>
+  );
+};
+```
+
+## Panel with an IFrame
+
+You can pass a `url` (instead of passing `children`) to the `Panel` component, and it will render an IFrame.
+
+```jsx live=true bordered=true
+() => {
+  let url = "https://skylinespark.sharepoint.com/sites/devshowcase";
+  let { Panel, panelProps, openPanel, closePanel, isOpen } = usePanel({ size: "large" });
+
+  return (
+    <div>
+      {!isOpen && <button onClick={openPanel}>Open Panel</button>}
+      {isOpen && <button onClick={closePanel}>Close Panel</button>}
+
+      <Panel {...panelProps} url={url} />
+    </div>
+  );
+};
+```
+
+## Without the hook
+
+If you didn't use the Hook you'd have to write all this code.
+
+```jsx
+import { Panel } from "office-ui-fabric-react/lib/Panel";
+import { IconButton } from "office-ui-fabric-react/lib/Button";
+import styled from "styled-components";
+
+function ThingWithPanel() {
+
+  let [isOpen, setIsOpen] = useState(startOpen);
+
+  let openPanel = useCallback(() => {
+    setIsOpen(true);
+  }, [setIsOpen]);
+
+  let closePanel = useCallback(() => {
+    setIsOpen(false);
+  }, [setIsOpen]);
+
+
+  // If dealing with IFrames in the Panel,
+  // usually want to wire up a way for the Iframed page
+  // to tell the Parent to close the panel
+  useEffect(() => {
+    let handler = (event) => {
+      try {
+        let msg = JSON.parse(event.data);
+        if (msg.type === "CLOSE_PANEL") {
+          closePanel();
+        }
+      } catch (err) {
+        // Couldn't parse json
+      }
+    };
+    window.addEventListener("message", handler, false);
+    return () => {
+      window.removeEventListener("message", handler);
+    };
+  });
+
+  return (
+    <div>
+      {!isOpen && <button onClick={openPanel}>Open Panel</button>}
+      {isOpen && <button onClick={closePanel}>Close Panel</button>}
+
+      <Panel
+        isOpen={isOpen}
+        isLightDismiss={true}
+        onDismiss={closePanel}
+        {/* Override the default Panel Header */}
+        onRenderNavigation={() => (
+          <StyledClose>
+            <IconButton iconProps={{ iconName: "ChromeClose" }} onClick={closePanel} />
+          </StyledClose>
+        )}
+      >
+        <div>I am stuff in a panel</div>
+      </Panel>
+    </div>
+  );
+}
+
+const StyledClose = styled.div`
+  position: absolute;
+  top: 5px;
+  right: 23px;
+  z-index: 10;
+  background: #ffffffbf;
+  border-radius: 50%;
+  opacity: 0.85;
+  &:hover {
+    opacity: 1;
+  }
+`;
+```
+
+## IPanelProps
+
+These are the Fabric UI Panel's props. The Panel component that the `usePanel` hook returns extends this interface.
+
+<PropsTable name="FabricPanelProps" />

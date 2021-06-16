@@ -1,0 +1,105 @@
+import BackgroundImage from "./BackgroundImage.tsx";
+import { PropsTable, Showcase } from "docs";
+
+# Background Image
+
+```tsx
+import { BackgroundImage } from "ui-toolkit";
+```
+
+A component for rendering an image that fills and scales and crops to whatever size you specify. Also supports an optional url for wrapping the image in a link.
+
+Under the covers it uses a div and sets a background-url with a background:cover
+
+This is what powers the Thumbnail image and the Card and VerticalList components.
+
+```tsx live=true
+() => {
+  let imageUrl =
+    "https://www.nationalgeographic.com/content/dam/expeditions/destinations/north-america/private/Yosemite/Hero-Yosemite.jpg";
+  return (
+    <div style={{ display: "flex", flexWrap: "wrap" }}>
+      <BackgroundImage style={{ width: "200px", height: "200px" }} src={imageUrl} />
+      <div style={{ width: "10px" }}></div>
+      <BackgroundImage style={{ width: "550px", height: "200px" }} src={imageUrl} />
+      <div style={{ width: "10px" }}></div>
+      <div style={{ width: "100px", height: "200px" }}>
+        <BackgroundImage src={imageUrl} />
+      </div>
+    </div>
+  );
+};
+```
+
+## Props
+
+<PropsTable name="BackgroundImageProps" />
+
+## Basic Usage
+
+Make sure to specify a width and height using the style object. If you don't specify a width and height, it will use 100% of parent.
+
+```tsx live=true
+() => {
+  let imageUrl =
+    "https://www.nationalgeographic.com/content/dam/expeditions/destinations/north-america/private/Yosemite/Hero-Yosemite.jpg";
+  return (
+    <div style={{ display: "flex", flexWrap: "wrap" }}>
+      <BackgroundImage style={{ width: "200px", height: "200px" }} src={imageUrl} />
+      <div style={{ width: "10px" }}></div>
+      <BackgroundImage style={{ width: "550px", height: "200px" }} src={imageUrl} />
+      <div style={{ width: "10px" }}></div>
+      <div style={{ width: "100px", height: "200px" }}>
+        <BackgroundImage src={imageUrl} />
+      </div>
+    </div>
+  );
+};
+```
+
+## Interactive Demo
+
+Allows you to see what an image looks like at diffent sizes
+
+```tsx live=true bordered=true
+() => {
+  let [width, setWidth] = React.useState(400);
+  let [height, setHeight] = React.useState(200);
+  let imageSrc =
+    "https://www.nationalgeographic.com/content/dam/expeditions/destinations/north-america/private/Yosemite/Hero-Yosemite.jpg";
+  return (
+    <div>
+      <div style={{ marginBottom: "10px" }}>
+        <input type="number" value={width} onChange={(e) => setWidth(e.currentTarget.value)} />
+        X
+        <input type="number" value={height} onChange={(e) => setHeight(e.currentTarget.value)} />
+      </div>
+      <BackgroundImage
+        style={{
+          width: width + "px",
+          height: height + "px",
+        }}
+        src={imageSrc}
+        url={imageSrc}
+      />
+    </div>
+  );
+};
+```
+
+## Custom Overlay
+
+You can pass JSX to be rendered over the image
+
+```tsx live=true
+<BackgroundImage
+  style={{
+    width: "100px",
+    height: "100px",
+    borderRadius: "50%",
+  }}
+  src="https://www.nationalgeographic.com/content/dam/expeditions/destinations/north-america/private/Yosemite/Hero-Yosemite.jpg"
+>
+  <BigDate date={new Date()} />
+</BackgroundImage>
+```
