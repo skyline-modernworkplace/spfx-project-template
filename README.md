@@ -1,3 +1,10 @@
+# DEPENDENCIES
+
+1. Running Node V12+
+2. Gulp V4 installed globally
+3. [Review dev environment setup](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/set-up-your-development-environment)
+4. [Review reslease notes for SPFX 1.12.1](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/release-1.12.1)
+
 # PROJECT NAME
 
 ## Deliverables
