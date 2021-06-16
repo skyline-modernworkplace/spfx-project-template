@@ -1,0 +1,97 @@
+import ThemeColorPicker from "./ThemeColorPicker.tsx";
+import { PropsTable, Showcase } from "docs";
+
+# ThemeColorPicker
+
+```tsx
+import { ThemeColorPicker } from "ui-toolkit";
+```
+
+Lets you choose between Primary, Secondary, Tertiary, or a completely custom color.
+
+```tsx live=true bordered=true
+() => {
+  let [color, setColor] = React.useState("themeSecondary");
+
+  return (
+    <div style={{ width: "300px" }}>
+      <h1 style={{ color: ThemeColorPicker.getHexColor(color) }}>{color}</h1>
+
+      <ThemeColorPicker value={color} onChange={setColor} label="Choose theme color" />
+    </div>
+  );
+};
+```
+
+## Props
+
+<PropsTable name="ThemeColorPickerProps" />
+
+## Basic Usage
+
+Shows how to setup the picker as well as turn it's value into a real color.
+
+```tsx live=true bordered=true
+() => {
+  let [color, setColor] = React.useState("themeSecondary");
+
+  return (
+    <div style={{ width: "300px" }}>
+      <h1 style={{ color: ThemeColorPicker.getHexColor(color) }}>{color}</h1>
+
+      <ThemeColorPicker value={color} onChange={setColor} label="Choose theme color" />
+      <h2>Disabled</h2>
+      <ThemeColorPicker
+        value={color}
+        onChange={setColor}
+        label="Choose theme color"
+        disabled={true}
+      />
+    </div>
+  );
+};
+```
+
+## Extra Options
+
+You can include extra choices for the dropdown via the 'extraOptions' prop
+
+```tsx live=true bordered=true
+() => {
+  let [color, setColor] = React.useState("steelblue");
+
+  return (
+    <div style={{ width: "300px" }}>
+      <h1 style={{ color: ThemeColorPicker.getHexColor(color) }}>{color}</h1>
+
+      <ThemeColorPicker
+        value={color}
+        onChange={setColor}
+        label="Choose theme color"
+        extraOptions={[
+          { key: "steelblue", text: "Steel Blue" },
+          { key: "transparent", text: "Transparent" },
+        ]}
+      />
+    </div>
+  );
+};
+```
+
+## Other Theme Params
+
+In Other mode, in addition to HEX codes, you can enter any valid theme param (a property on theme.palette).
+
+```tsx live=true
+() => {
+  let [color, setColor] = React.useState("themeLighterAlt");
+
+  return (
+    <div style={{ width: "300px" }}>
+      <h1 style={{ color: ThemeColorPicker.getHexColor(color) }}>{color}</h1>
+
+      <ThemeColorPicker value={color} onChange={setColor} label="Choose theme color" />
+    </div>
+  );
+};
+```

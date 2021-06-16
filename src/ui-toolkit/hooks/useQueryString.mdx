@@ -1,0 +1,56 @@
+import { PropsTable } from "docs";
+
+# useQueryString
+
+A hook that works just like `useState`, except that it persists the value to the Url as a query string param.
+If the current url has a value for that param, that value will be used as the initial state.
+
+> Check out this page's url. UI Toolkit uses `useQueryString` to keep track of the `active` documentation to show.
+
+```javascript
+// Import
+import { useQueryString } from "ui-toolkit";
+
+// Ex: Track a param called 'scope'. Default it to 'all'
+let [scopeKey, setScopeKey] = useQueryString("scope", "all");
+
+// Ex: Persist a search text to the url with a 'query' param,
+// but wait a 1/2 second for the user to stop typing before updating the url
+let [searchText, setSearchText] = useQueryString("query", "", 500);
+```
+
+## Params
+
+<PropsTable
+  properties={[
+    {
+      name: "key",
+      type: `string`,
+      description: "The name of the query string param. This will show up in the url.",
+      isRequired: "Required",
+    },
+    {
+      name: "initialValue",
+      type: `T`,
+      description:
+        "The intial value. Will only be used if there isn't anything in the query string already.",
+      isRequired: "Required",
+    },
+    {
+      name: "delay",
+      type: `number`,
+      description:
+        "Defaults to 0. If you pass a value greater than `0`, the url update will be debounced. This is nice for situations like a textbox should update the url as the user types.",
+      isRequired: "Optional",
+    },
+  ]}
+/>
+
+## Return value
+
+Returns an Array (a tuple) with a getter and a setter, just like `React.useState`
+
+```javascript
+// You could call 'thing' whatever you want. Just like useState
+let [thing, setThing] = useQueryString("thing", "");
+```

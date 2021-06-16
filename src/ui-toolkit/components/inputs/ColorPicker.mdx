@@ -1,0 +1,46 @@
+import ColorPicker from "./ColorPicker.tsx";
+import { PropsTable, Showcase } from "docs";
+
+# ColorPicker
+
+```tsx
+import { ColorPicker } from "ui-toolkit";
+```
+
+Lets you choose a custom color with either direct text entry or an advanced color picker.
+
+```tsx live=true bordered=true
+() => {
+  let [color, setColor] = React.useState("#008080");
+
+  return (
+    <div style={{ width: "200px" }}>
+      <h1 style={{ color }}>{color}</h1>
+
+      <ColorPicker value={color} onChange={setColor} />
+    </div>
+  );
+};
+```
+
+## Props
+
+<PropsTable name="ColorPickerProps" />
+
+## Basic Usage
+
+You can type in the input or click the color square.
+
+```tsx live=true bordered=true
+() => {
+  let [color, setColor] = React.useState("#008080");
+
+  return (
+    <div style={{ width: "200px" }}>
+      <h1 style={{ color }}>{color}</h1>
+
+      <ColorPicker value={color} onChange={(newColor) => setColor(newColor)} />
+    </div>
+  );
+};
+```

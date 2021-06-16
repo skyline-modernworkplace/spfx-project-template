@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 
 export default function usePersistedState<T>(
-  defaultValue: T,
   key: string,
+  defaultValue: T,
   storage = window.localStorage
 ) {
-  let [value, setValue] = useState(() => {
+  let [value, setValue] = useState<T>(() => {
     try {
       let cachedValue = storage.getItem(key);
       if (!cachedValue) return defaultValue;

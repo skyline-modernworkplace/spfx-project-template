@@ -10,7 +10,13 @@ export default function Tags({ children, className = "", tags = [] }: TagProps) 
 
   return (
     <StyledTags className={cssClass}>
-      {children ? children : tags.map((tag) => <Tag url={tag.url}>{tag.label}</Tag>)}
+      {children
+        ? children
+        : tags.map((tag) => (
+            <Tag url={tag.url} key={tag.label}>
+              {tag.label}
+            </Tag>
+          ))}
     </StyledTags>
   );
 }

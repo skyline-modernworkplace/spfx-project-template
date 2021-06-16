@@ -1,9 +1,69 @@
 import React from "react";
-import { format, startOfDay, isEqual, getMinutes, isValid } from "date-fns";
+import dayjs from "dayjs";
 
-const DATE_FORMAT = "EEE, MMM do";
+const DATE_FORMAT = "ddd, MMM D";
 
-const getTimeFormat = (date: Date) => (getMinutes(date) === 0 ? "haaaa" : "h:mmaaaa");
+const getTimeFormat = (date: Date) => (getMinutes(date) === 0 ? "ha" : "h:mma");
+
+export type DateRangeType =
+  | "single-day-time"
+  | "single-day-times"
+  | "single-all-day"
+  | "multi-day-time"
+  | "multi-all-day";
+
+export function getDateRangeType(start: Date, end?: Date): DateRangeType {
+  if (!isValid(start)) return null;
+
+  //single-day-time
+  // no end date, start time not midnight
+  if (!isValid(end) && !checkIsMidnight(start)) {
+    return "single-day-time";
+  }
+
+  //"single-all-day"
+  // no end date, time is midnight
+  if (!isValid(end) && checkIsMidnight(start)) {
+    return "single-all-day";
+  }
+
+  //single-day-times
+  // has end date, start and end are the same day
+  if (isValid(end) && checkSameDay(start, end)) {
+    return "single-day-times";
+  }
+
+  //multi-day-time
+  // both start date and end date, start and end are different, both times are not midnight
+  if (
+    isValid(end) &&
+    !checkSameDay(start, end) &&
+    !(checkIsMidnight(start) && checkIsMidnight(end))
+  ) {
+    return "multi-day-time";
+  }
+  //multi-all-day
+  // both start date and end date, start and end are different, both times are midnight
+  if (isValid(end) && !checkSameDay(start, end) && checkIsMidnight(start) && checkIsMidnight(end)) {
+    return "multi-all-day";
+  }
+}
+
+const format = (date, formatStr) => {
+  return dayjs(date).format(formatStr);
+};
+const isValid = (date) => dayjs(date).isValid();
+const getMinutes = (date) => dayjs(date).get("minute");
+const isEqual = (dateA, dateB) => dayjs(dateA).isSame(dateB);
+const startOfDay = (date) => dayjs(date).startOf("day");
+
+function checkSameDay(start, end) {
+  return isEqual(startOfDay(start), startOfDay(end));
+}
+
+function checkIsMidnight(date) {
+  return isEqual(startOfDay(date), date);
+}
 
 export default function DateRangeText(event: DateRangeTextProps) {
   if (!isValid(event.start)) return null;
@@ -48,7 +108,7 @@ const renderMultiDayAllDay = (event) => (
 // Multi day event render StartDateTime - EndDateTime
 const renderMultiDay = (event) => (
   <span>
-    {format(event.start, DATE_FORMAT + ", " + getTimeFormat(event.start))} {" \u2192 "}
+    {format(event.start, DATE_FORMAT + ", " + getTimeFormat(event.start))} {" - "}
     {format(event.end, DATE_FORMAT + ", " + getTimeFormat(event.end))}
   </span>
 );

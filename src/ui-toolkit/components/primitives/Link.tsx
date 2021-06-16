@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "ui-toolkit/styled-components";
 import { parse as parseUrl } from "url";
-import PanelLink from "../PanelLink/PanelLink";
+import PanelLink from "../Panel/PanelLink";
 import { getThemeValue } from "../PortalsThemeProvider/PortalsThemeProvider";
 
 const CLASS_NAME = "custom-link";
@@ -11,7 +11,12 @@ export interface LinkProps {
   [key: string]: any;
 }
 
-const Link: React.FC<LinkProps> = ({ href = "", target = "", children, ...additionalProps }) => {
+export const Link: React.FC<LinkProps> = ({
+  href = "",
+  target = "",
+  children,
+  ...additionalProps
+}) => {
   //Used by items like card title to render either a link or as just text
   if (!href) return <>{children}</>;
 
@@ -68,7 +73,7 @@ const StyledLink = styled.a`
   }
 `;
 
-const calculateLinkTarget = function(url, target) {
+const calculateLinkTarget = function (url, target) {
   if (target || !url) return target;
 
   try {

@@ -1,0 +1,52 @@
+import { PropsTable } from "docs";
+
+# useComponentSize
+
+Hook that watches an element and returns the elements size `{ height, width }`, anytime the component's size changes.
+
+```javascript
+import { useComponentSize } from "ui-toolkit";
+
+let elementRef = useRef(null);
+let { width, height } = useComponentSize(elementRef);
+
+return (
+  <div ref={elementRef}>
+    {width < 600 && <NarrowView />}
+    {width >= 600 && <WideView />}
+  </div>
+);
+```
+
+```tsx live=true
+() => {
+  let elementRef = React.useRef(null);
+  let { width, height } = useComponentSize(elementRef);
+
+  return (
+    <div style={{ width: "100%", background: "#eee" }} ref={elementRef}>
+      <h4>Width: {width}</h4>
+      <h4>Height: {height}</h4>
+    </div>
+  );
+};
+```
+
+## Params
+
+<PropsTable
+  properties={[
+    {
+      name: "ref",
+      type: `React.Ref`,
+      description: "The ref that you put on your container element.",
+      isRequired: "Required",
+    },
+  ]}
+/>
+
+## Returns
+
+The hook returns an object with the following properties
+
+<PropsTable name="ComponentSizeData" />

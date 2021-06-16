@@ -1,0 +1,139 @@
+export const metadata = {
+  parent: "surfaces",
+};
+
+import Card from "./Card.tsx";
+import { PropsTable, Showcase } from "docs";
+
+# Card
+
+The Card component is frequently used to display a list of items with imagery. Often it is shown in a grid.
+
+```tsx
+import { Card } from "ui-toolkit";
+```
+
+```tsx live=true
+<Card style={{ width: "350px" }}>
+  <Card.Image
+    size={200}
+    url="https://www.google.com/search?q=zebra+canyon+escalante+utah"
+    src={images[0]}
+  ></Card.Image>
+  <Card.Title url="https://www.google.com/search?q=zebra+canyon+escalante+utah">
+    Zebra Canyon - Utah
+  </Card.Title>
+  <Card.Tags
+    tags={[{ label: "SlotCanyon" }, { label: "Utah", url: "#" }, { label: "WheresTheWater?" }]}
+  />
+  <Card.Description>
+    This is the description of the Card. You can render whatever you want inside of a Card. But it
+    comes with some sub components to handle common scenarios.
+  </Card.Description>
+  <Card.Footer>
+    <Card.Info>Jan 2, 2018</Card.Info>
+    <Card.Info>35 views</Card.Info>
+  </Card.Footer>
+</Card>
+```
+
+## Props
+
+<PropsTable name="CardProps" />
+
+## SubComponents
+
+The `Card` component comes with some sub components. You don't have to use them. Most of them are just other UI Toolkit
+components exposed on the Card object to make it easier to leverage them.
+
+- `Card.Title` - styling helpers for the Title
+- `Card.Foooter` - automatically alignes to the bottom.
+- `Card.Image` - Shows with out Card padding.
+- `Card.Description` - Has some built it spacing to make things look nice
+- `Card.Tags` - Display a horizontal list of tags. Pass an array of `{ label, url? }`
+- `Card.Grid` - Just exposes the `Grid` component.
+
+## Basic Usage
+
+YOu can put whatever you want in a `Card`. You don't have to use the `Card` sub components.
+
+```tsx live=true
+<Card>
+  <h1>I am a card</h1>
+  <p>And I am the description of a card</p>
+</Card>
+```
+
+## Card Title & Description
+
+Use the `Card.Title` component to render larger text. `Card.Title` is the same thing as uitoolkit's `Title`.
+Use `Card.Description` to render paragraphs of text. It doesn't do much except give your p tag a little breathing room with padding.
+
+```tsx live=true
+<Card>
+  <Card.Title>I am a card title</Card.Title>
+  <Card.Description>I am a card description.</Card.Description>
+</Card>
+```
+
+## Card with Image Overlay
+
+Shows a card with an image, but that image has a custom overlay
+Use the `Card.Title` component to render larger text. `Card.Title` is the same thing as uitoolkit's `Title`.
+Use `Card.Description` to render paragraphs of text. It doesn't do much except give your p tag a little breathing room with padding.
+
+```tsx live=true
+<Card>
+  <Card.Image src="https://s27363.pcdn.co/wp-content/uploads/2017/09/Zebra-Slot-Canyon.jpg.optimal.jpg">
+    <BigDate date={new Date()} style={{ fontSize: "30px" }} />
+  </Card.Image>
+  <Card.Title>Card with Image Overlay</Card.Title>
+  <Card.Description>I am a card with an image that has a custom overlay.</Card.Description>
+</Card>
+```
+
+## Kitchen Sink
+
+This demo shows how to use all the `Card` SubComponents
+
+```tsx live=true
+<Card.Grid size="275px">
+  <Card>
+    <Card.Image
+      size={200}
+      url="https://www.google.com/search?q=zebra+canyon+escalante+utah"
+      src="https://s27363.pcdn.co/wp-content/uploads/2017/09/Zebra-Slot-Canyon.jpg.optimal.jpg"
+    ></Card.Image>
+    <Card.Title url="https://www.google.com/search?q=zebra+canyon+escalante+utah">
+      Clickable Card Title below Image
+    </Card.Title>
+    <Card.Tags tags={[{ label: "ReadOnly Tag" }, { label: "Clickable Tag", url: "#" }]} />
+    <Card.Description>
+      This card shows how to use an Image, Title, Tags, Footer, and Info. In this exampe the card is
+      below the image.
+    </Card.Description>
+    <Card.Footer>
+      <Card.Info>Jan 2, 2018</Card.Info>
+      <Card.Info>35 views</Card.Info>
+    </Card.Footer>
+  </Card>
+
+  <Card>
+    <Card.Title>Card Title Above Image</Card.Title>
+    <Card.Tags tags={[{ label: "ReadOnly Tag" }, { label: "Clickable Tag", url: "#" }]} />
+    <Card.Image
+      url="https://www.google.com/search?q=zebra+canyon+escalante+utah"
+      src="https://s27363.pcdn.co/wp-content/uploads/2017/09/Zebra-Slot-Canyon.jpg.optimal.jpg"
+    ></Card.Image>
+
+    <Card.Description>
+      This card shows how to use an Image, Title, Tags, Footer, and Info. In this exampe the card is
+      below the image.
+    </Card.Description>
+    <Card.Footer>
+      <Card.Info>Jan 2, 2018</Card.Info>
+      <Card.Info>35 views</Card.Info>
+    </Card.Footer>
+  </Card>
+</Card.Grid>
+```

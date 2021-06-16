@@ -1,0 +1,114 @@
+export const metadata = {
+  parent: "layouts",
+};
+import Filmstrip from "./Filmstrip.tsx";
+import { PropsTable, Showcase } from "docs";
+
+# Filmstrip
+
+```tsx
+import { Filmstrip } from "ui-toolkit";
+```
+
+Displays arbitrary children components in a row.
+
+- Uniformally sizes your items to fit the parent container (based on your target width)
+- Handles paging with Prev and Next buttons. The buttons only appear if you can't fit all the items into one frame.
+- Handles autopaging after a specified interval(defaults to 5 seconds)
+- Built in touch support so you can swipe left or right
+
+```tsx live=true
+<Filmstrip width={300} autopage={4000}>
+  {items.slice(0, 10).map((item) => (
+    <Card styles={{ width: "100%" }}>
+      <Card.Image src={item.image} />
+      <Card.Title>{item.title}</Card.Title>
+      <Card.Description>{item.description}</Card.Description>
+    </Card>
+  ))}
+</Filmstrip>
+```
+
+## Props
+
+<PropsTable name="FilmstripProps" />
+
+## Basic Usage
+
+The Filmstrip component just expects an array of Children components. It shouldn't matter what you render for each child.
+
+```tsx live=true
+<Filmstrip>
+  <Card centered>One</Card>
+  <Card centered>Two</Card>
+  <Card centered>Three</Card>
+  <Card centered>Four</Card>
+  <Card centered>Five</Card>
+  <Card centered>Six</Card>
+  <Card centered>Seven</Card>
+  <Card centered>Eight</Card>
+</Filmstrip>
+```
+
+## Item Mapping
+
+Typically you'll probably map through an array of items and render each item however you want.
+
+```tsx live=true
+<Filmstrip autopage={2000}>
+  {items.slice(0, 10).map((item) => (
+    <Card className="virtualized-card" styles={{ width: "100%" }}>
+      <Card.Image src={item.image} />
+      <Card.Title>{item.title}</Card.Title>
+      <Card.Description>{item.description}</Card.Description>
+    </Card>
+  ))}
+</Filmstrip>
+```
+
+## Layout Toggling
+
+This example shows how you could toggle between Grid and Filmstrip
+
+```tsx live=true
+() => {
+  let [layout, setLayout] = React.useState("filmstrip");
+  let [size, setSize] = React.useState(300);
+
+  let LayoutComponent = layout === "grid" ? Grid : Filmstrip;
+  let layoutProps = {
+    size: size + "px",
+    width: size,
+    autopage: 4000,
+  };
+
+  return (
+    <>
+      <div style={{ width: "100%", marginBottom: "30px" }}>
+        <label>
+          Choose a Layout:
+          <select name="layout" value={layout} onChange={(e) => setLayout(e.currentTarget.value)}>
+            <option>grid</option>
+            <option>filmstrip</option>
+          </select>
+        </label>
+
+        <label>
+          Choose a size:
+          <input type="number" value={size} onChange={(e) => setSize(e.target.value)} />
+        </label>
+      </div>
+
+      <LayoutComponent {...layoutProps}>
+        {items.slice(0, 12).map((item) => (
+          <Card className="virtualized-card" styles={{ width: "100%" }}>
+            <Card.Image src={item.image} />
+            <Card.Title>{item.title}</Card.Title>
+            <Card.Description>{item.description}</Card.Description>
+          </Card>
+        ))}
+      </LayoutComponent>
+    </>
+  );
+};
+```

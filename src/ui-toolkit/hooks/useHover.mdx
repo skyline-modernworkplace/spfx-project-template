@@ -1,0 +1,41 @@
+import { PropsTable } from "docs";
+
+# useHover
+
+Hook that tells you whether a specific element is being hovered
+
+```javascript
+import { useHover } from "ui-toolkit";
+
+let elementRef = useRef(null);
+let isHovered = useHover(elementRef);
+
+return (
+  <div ref={elementRef}>
+    <div>Stuff</div>
+  </div>
+);
+```
+
+```tsx live=true
+() => {
+  let elementRef = React.useRef(null);
+  let isHovered = useHover(elementRef);
+
+  return (
+    <div
+      ref={elementRef}
+      style={{
+        border: "1px solid #000",
+        width: "100%",
+        textAlign: "center",
+        padding: "20px",
+        boxSizing: "border-box",
+      }}
+    >
+      {!isHovered && <div>Hover Me</div>}
+      {isHovered && <div>Geez give me some space</div>}
+    </div>
+  );
+};
+```

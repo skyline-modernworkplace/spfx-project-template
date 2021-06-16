@@ -3,7 +3,8 @@ import styled from "ui-toolkit/styled-components";
 import { Pivot, PivotItem } from "office-ui-fabric-react/lib/Pivot";
 import { getPortalsTheme } from "../PortalsThemeProvider/PortalsThemeProvider";
 import { TextField } from "office-ui-fabric-react/lib/TextField";
-export default function ThemePreview() {
+
+export function ThemePreview() {
   let [filter, setFilter] = useState("");
   let theme = getPortalsTheme();
   return (
@@ -45,6 +46,8 @@ export default function ThemePreview() {
   );
 }
 
+export default ThemePreview;
+
 export function ColorPreview({ hex = "", label = "" }) {
   return (
     <StyledColorSwatch>
@@ -61,7 +64,7 @@ export function ColorPreview({ hex = "", label = "" }) {
   );
 }
 
-const getThemeColors = function(themeArea, filter = "") {
+const getThemeColors = function (themeArea, filter = "") {
   if (!themeArea) return [];
   return Object.keys(themeArea)
     .filter((themeParam) => typeof themeArea[themeParam] === "string")

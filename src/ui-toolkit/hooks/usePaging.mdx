@@ -1,0 +1,40 @@
+import { PropsTable } from "docs";
+
+# usePaging
+
+A hook to help you manage paging. Helps to deal with things like wrapping around back
+to page 1 when you reach the max number of pages.
+
+```javascript
+import { usePaging } from "ui-toolkit";
+
+// You can grab the whole paging object
+let paging = usePaging(items.length);
+// Or you can destructure
+let { currentPage, goForward, goBack, goTo } = usePaging(items.length);
+```
+
+## Params
+
+<PropsTable
+  properties={[
+    {
+      name: "totalItems",
+      type: `number`,
+      description: "The total number of items you have.",
+      isRequired: "Required",
+    },
+    {
+      name: "initialPage",
+      type: `number`,
+      description: "Defaults to 1.",
+      isRequired: "Optional",
+    },
+  ]}
+/>
+
+## Return Object
+
+The hook returns an object with the following properties/methods:
+
+<PropsTable name="PagingContext" />

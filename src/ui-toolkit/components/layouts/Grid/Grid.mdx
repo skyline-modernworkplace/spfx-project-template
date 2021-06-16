@@ -1,0 +1,156 @@
+export const metadata = {
+  parent: "layouts",
+};
+
+import Grid from "./Grid.tsx";
+import { PropsTable, Showcase } from "docs";
+
+# Grid
+
+```tsx
+import { Grid } from "ui-toolkit";
+```
+
+A component for rendering a grid of items. It checks browser support and uses CSS Grid if possible, otherwise it falls back to flexbox which is compatible with IE11.
+
+```tsx live=true
+<Grid size={"300px"}>
+  <BackgroundImage style={{ height: "150px" }} src={images[0]} />
+  <BackgroundImage style={{ height: "150px" }} src={images[1]} />
+  <BackgroundImage style={{ height: "150px" }} src={images[2]} />
+  <BackgroundImage style={{ height: "150px" }} src={images[3]} />
+  <BackgroundImage style={{ height: "150px" }} src={images[4]} />
+  <BackgroundImage style={{ height: "150px" }} src={images[0]} />
+  <BackgroundImage style={{ height: "150px" }} src={images[1]} />
+  <BackgroundImage style={{ height: "150px" }} src={images[2]} />
+  <BackgroundImage style={{ height: "150px" }} src={images[3]} />
+  <BackgroundImage style={{ height: "150px" }} src={images[4]} />
+</Grid>
+```
+
+## Props
+
+<PropsTable name="GridProps" />
+
+## Basic Usage
+
+```tsx live=true
+<Grid size={"300px"}>
+  <BackgroundImage style={{ height: "150px" }} src={images[0]} />
+  <BackgroundImage style={{ height: "150px" }} src={images[1]} />
+  <BackgroundImage style={{ height: "150px" }} src={images[2]} />
+  <BackgroundImage style={{ height: "150px" }} src={images[3]} />
+  <BackgroundImage style={{ height: "150px" }} src={images[4]} />
+  <BackgroundImage style={{ height: "150px" }} src={images[0]} />
+  <BackgroundImage style={{ height: "150px" }} src={images[1]} />
+  <BackgroundImage style={{ height: "150px" }} src={images[2]} />
+  <BackgroundImage style={{ height: "150px" }} src={images[3]} />
+  <BackgroundImage style={{ height: "150px" }} src={images[4]} />
+</Grid>
+```
+
+## No Flex
+
+Respect the size prop and don't stretch the column width to fill the available parent width.
+
+```tsx live=true
+<Grid size={"300px"} shouldFlex={false}>
+  <BackgroundImage style={{ height: "150px" }} src={images[0]} />
+  <BackgroundImage style={{ height: "150px" }} src={images[1]} />
+  <BackgroundImage style={{ height: "150px" }} src={images[2]} />
+  <BackgroundImage style={{ height: "150px" }} src={images[3]} />
+  <BackgroundImage style={{ height: "150px" }} src={images[4]} />
+  <BackgroundImage style={{ height: "150px" }} src={images[0]} />
+  <BackgroundImage style={{ height: "150px" }} src={images[1]} />
+  <BackgroundImage style={{ height: "150px" }} src={images[2]} />
+  <BackgroundImage style={{ height: "150px" }} src={images[3]} />
+  <BackgroundImage style={{ height: "150px" }} src={images[4]} />
+</Grid>
+```
+
+## Force Flexbox Mode
+
+You can pass a mode of 'flex' to force it to use Flexbox instead of CSS Grid
+
+```tsx live=true
+<Grid mode="flex" size={"200px"} gap={1}>
+  <BackgroundImage style={{ height: "150px" }} src={images[0]} />
+  <BackgroundImage style={{ height: "150px" }} src={images[1]} />
+  <BackgroundImage style={{ height: "150px" }} src={images[2]} />
+  <BackgroundImage style={{ height: "150px" }} src={images[3]} />
+  <BackgroundImage style={{ height: "150px" }} src={images[4]} />
+  <BackgroundImage style={{ height: "150px" }} src={images[0]} />
+  <BackgroundImage style={{ height: "150px" }} src={images[1]} />
+  <BackgroundImage style={{ height: "150px" }} src={images[2]} />
+  <BackgroundImage style={{ height: "150px" }} src={images[3]} />
+  <BackgroundImage style={{ height: "150px" }} src={images[4]} />
+</Grid>
+```
+
+## Interactive Demo
+
+```tsx live=true
+() => {
+  let [width, setWidth] = React.useState(300);
+  let [height, setHeight] = React.useState(150);
+  let [shouldFlex, setShouldFlex] = React.useState(true);
+  let [imageUrl, setImageUrl] = React.useState(
+    "https://www.nationalgeographic.com/content/dam/expeditions/destinations/north-america/private/Yosemite/Hero-Yosemite.jpg"
+  );
+  return (
+    <>
+      <form>
+        <div style={{ marginBottom: "20px" }}>
+          <label htmlFor="imageUrl">Image</label>
+          <textarea
+            rows={5}
+            style={{ width: "320px" }}
+            type="text"
+            name="imageUrl"
+            value={imageUrl}
+            onChange={(e) => setImageUrl(e.currentTarget.value)}
+          />
+        </div>
+        <div style={{ marginBottom: "20px" }}>
+          <label htmlFor="width">Width</label>
+          <input
+            type="number"
+            name="width"
+            value={width}
+            onChange={(e) => setWidth(e.currentTarget.value)}
+          />
+        </div>
+        <div style={{ marginBottom: "20px" }}>
+          <label htmlFor="height">Height</label>
+          <input
+            type="number"
+            name="height"
+            value={height}
+            onChange={(e) => setHeight(e.currentTarget.value)}
+          />
+        </div>
+        <div style={{ marginBottom: "20px" }}>
+          <label htmlFor="height">Should Flex?</label>
+          <input
+            type="checkbox"
+            name="shouldFlex"
+            checked={shouldFlex}
+            onClick={() => setShouldFlex(!shouldFlex)}
+          />
+        </div>
+      </form>
+      <Grid size={width + "px"} shouldFlex={shouldFlex}>
+        <BackgroundImage style={{ height: height + "px" }} src={imageUrl} />
+        <BackgroundImage style={{ height: height + "px" }} src={imageUrl} />
+        <BackgroundImage style={{ height: height + "px" }} src={imageUrl} />
+        <BackgroundImage style={{ height: height + "px" }} src={imageUrl} />
+        <BackgroundImage style={{ height: height + "px" }} src={imageUrl} />
+        <BackgroundImage style={{ height: height + "px" }} src={imageUrl} />
+        <BackgroundImage style={{ height: height + "px" }} src={imageUrl} />
+        <BackgroundImage style={{ height: height + "px" }} src={imageUrl} />
+        <BackgroundImage style={{ height: height + "px" }} src={imageUrl} />
+      </Grid>
+    </>
+  );
+};
+```

@@ -10,21 +10,19 @@ declare global {
   }
 }
 
-const PortalsThemeProvider: React.FC<PortalsThemeProviderProps> = ({ children, theme }) => {
+export const PortalsThemeProvider: React.FC<PortalsThemeProviderProps> = ({ children, theme }) => {
   window._portalsTheme = {
     ...theme,
     global: (window as any).__themeState__.theme || {
       ...theme.semanticColors,
       ...theme.palette,
     },
-    getValue: function(path: string, fallback = "#f00") {
+    getValue: function (path: string, fallback = "#f00") {
       return getValue(this, path) || fallback;
     },
   };
   return <ThemeProvider theme={window._portalsTheme}>{children}</ThemeProvider>;
 };
-
-export default PortalsThemeProvider;
 
 export interface PortalsThemeProviderProps {
   theme: IReadonlyTheme;
@@ -43,6 +41,34 @@ export function getPortalsTheme() {
     };
   }
   return theme;
+}
+
+// getThemeColor("red") => "#f00"
+// getThemeColor("bodyText") => theme.semanticColor.bodyText
+// getThemeColor("themePrimary") => theme.palette.themePrimary
+// getThemeColor("bodyText", false) => theme.global.bodyText
+
+export function getThemeColor(color: string, obeyVariant = true) {
+  if (color === "primary") {
+    color = "themePrimary";
+  }
+  if (color === "secondary") {
+    color = "themeSecondary";
+  }
+  if (color === "tertiary") {
+    color = "themeTertiary";
+  }
+  if (!obeyVariant) {
+    return getThemeColorByNamespace(color, null, "global") || color;
+  }
+
+  let semanticColor = getThemeColorByNamespace(color, null, "semanticColors");
+  let paletteColor = getThemeColorByNamespace(color, null, "palette");
+  return semanticColor || paletteColor || color;
+}
+
+function getThemeColorByNamespace(color: string, fallback: string, namespace: string) {
+  return getThemeValue(`${namespace}.${color}`, fallback);
 }
 
 export function getThemeValue(path: string, fallback: string, theme?: any) {

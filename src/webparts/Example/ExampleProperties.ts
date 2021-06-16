@@ -7,7 +7,7 @@ import {
 import { WebPartContext } from '@microsoft/sp-webpart-base';
 
 export interface WebPartProperties {
-    title: string,
+    title: string;
 }
 
 export let getPropertyPane = function(properties: WebPartProperties, context: WebPartContext, onUpdate: Function) {
@@ -27,5 +27,5 @@ export let getPropertyPane = function(properties: WebPartProperties, context: We
                 }
             ]
         }]
-    }
-}
+    };
+};

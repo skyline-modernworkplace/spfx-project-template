@@ -45,7 +45,7 @@ export default class ExampleWebPart extends BaseClientSideWebPart<WebPartPropert
                 webUrl: this.context.pageContext.web.absoluteUrl,
                 theme: this._theme
             },
-        }
+        };
         var element = React.createElement(Example, props);
         ReactDom.render(element, this.domElement);
     }

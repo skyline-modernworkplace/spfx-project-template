@@ -13,7 +13,9 @@ export function getDelveLink(email: string) {
 }
 
 export function getCurrentWebUrl() {
-  return window.__portalsDev && window.__portalsDev.webUrl ? window.__portalsDev.webUrl : "";
+  return window.__portalsDev && window.__portalsDev.webUrl
+    ? window.__portalsDev.webUrl
+    : getSiteUrl();
 }
 export function getCurrentSiteCollectionUrl() {
   return window.__portalsDev && window.__portalsDev.siteUrl ? window.__portalsDev.siteUrl : "";

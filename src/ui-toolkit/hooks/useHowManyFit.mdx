@@ -1,0 +1,54 @@
+import { PropsTable } from "docs";
+
+# useHowManyFit
+
+A hook that keeps track of an elements width, and tells you how many children of a specified width would fit inside.
+It also returns the width of the item so that each item is perfectly sized to fit.
+
+This is what `Filmstrip` uses to figure out how many items in can fit based on the dynamic size of the parent element.
+
+```typescript
+import { useHowManyFit } from "ui-toolkit";
+
+let parentRef = useRef(null);
+let [numItemsThatFit, itemWidth, parentWidth] = useHowManyFit(250, parentRef));
+
+return (
+  <div ref={parentRef}>
+    <StyledItems itemWidth={itemWidth}>
+      {children}
+    </StyledItems>
+  </div>
+);
+```
+
+## Params
+
+<PropsTable
+  properties={[
+    {
+      name: "itemMinWidth",
+      type: "number",
+      description: "The minimum width of one of the items.",
+      isRequired: "Required",
+    },
+    {
+      name: "ref",
+      type: `React.Ref`,
+      description: "A ref tied to the parent element.",
+      isRequired: "Required",
+    },
+    {
+      name: "options",
+      type: "HowManyFitOptions",
+      description: "See below for the available options",
+      isRequired: "Optional",
+    },
+  ]}
+/>
+
+## HowManyFit Options
+
+You can pass an options object as the third parameter to the hook
+
+<PropsTable name="HowManyFitOptions" />

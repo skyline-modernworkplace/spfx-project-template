@@ -1,0 +1,71 @@
+export const metadata = {
+  parent: "utilities",
+};
+
+import DateRangeText from "./DateRangeText.tsx";
+import { PropsTable, Showcase } from "docs";
+
+# Date Range Text
+
+```tsx
+import { DateRangeText } from "ui-toolkit";
+```
+
+Takes in a two dates and displays them as a string. Useful for displaying an Event's start and end dates as a single string.
+
+<Showcase>
+  <DateRangeText
+    start={new Date("December 17, 2019 14:00:00")}
+    end={new Date("December 17, 2019 16:00:00")}
+  />
+</Showcase>
+
+## Props
+
+<PropsTable name="DateRangeTextProps" />
+
+## Single Day
+
+For a single day date range
+
+```tsx live=true bordered=true
+<h2>
+  <DateRangeText
+    start={new Date("December 17, 2019 14:00:00")}
+    end={new Date("December 17, 2019 16:00:00")}
+  />
+</h2>
+```
+
+## Single Day - All Day
+
+For a single day date range on an all day event.
+
+```tsx live=true bordered=true
+<h2>
+  <DateRangeText start={new Date("11/12/2019")} />
+</h2>
+```
+
+## Multi Day
+
+For a multi-day date range, with explicit start and end times.
+
+```tsx live=true bordered=true
+<h2>
+  <DateRangeText
+    start={new Date("December 17, 2019 14:00:00")}
+    end={new Date("December 19, 2019 16:00:00")}
+  />
+</h2>
+```
+
+## Multi Day - All Day
+
+For a multi-day date range, on an all day event.
+
+```tsx live=true bordered=true
+<h2>
+  <DateRangeText start={new Date("11/12/2019")} end={new Date("11/15/2019")} />
+</h2>
+```

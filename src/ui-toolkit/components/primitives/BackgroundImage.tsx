@@ -4,7 +4,7 @@ import Link from "./Link";
 
 const CLASS_NAME = "background-image";
 
-export default function BackgroundImage({
+export function BackgroundImage({
   children = null,
   src,
   url = "",
@@ -24,6 +24,8 @@ export default function BackgroundImage({
     </StyledImageContainer>
   );
 }
+
+export default BackgroundImage;
 
 const StyledImageContainer = styled.div`
   /* font-weight: 200; */

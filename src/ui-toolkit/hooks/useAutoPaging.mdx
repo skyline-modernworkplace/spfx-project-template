@@ -1,0 +1,43 @@
+import { PropsTable } from "docs";
+
+# useAutoPaging
+
+Hook that handles incrementing the current page at the specified interval
+
+```javascript
+import { useAutoPaging } from "ui-toolkit";
+
+let autopaging = useAutoPaging(items.length, 4000);
+```
+
+## Params
+
+<PropsTable
+  properties={[
+    {
+      name: "totalItems",
+      type: `number`,
+      description: "The total number of items you have.",
+      isRequired: "Required",
+    },
+    {
+      name: "delay",
+      type: `number`,
+      description:
+        "Defaults to 5000. Number of milliseconds to delay before incrementing the page.",
+      isRequired: "Optional",
+    },
+    {
+      name: "initialPage",
+      type: `number`,
+      description: "Defaults to 1.",
+      isRequired: "Optional",
+    },
+  ]}
+/>
+
+## Returns
+
+The hook returns an object with the following properties
+
+<PropsTable name="AutoPagingContext" />

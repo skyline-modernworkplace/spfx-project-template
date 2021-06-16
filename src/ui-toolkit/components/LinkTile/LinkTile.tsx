@@ -1,16 +1,17 @@
 import React from "react";
-import IconImage, {
-  defaultIconImageProps,
-  IconImageProps,
-  getIconFontSize,
-} from "../IconImage/IconImage";
+
 import Link from "../primitives/Link";
 import styled from "ui-toolkit/styled-components";
-import { getHexColor } from "../ColorPicker/ThemeColorPicker";
-
+import {
+  IconImage,
+  defaultIconImageProps,
+  getIconFontSize,
+  IconImageProps,
+} from "../primitives/IconImage";
+import { getThemeColor } from "../PortalsThemeProvider/PortalsThemeProvider";
 const CLASS_NAME = "link-tile";
 
-function LinkTile(props: LinkTileProps) {
+export function LinkTile(props: LinkTileProps) {
   let cssClass = [CLASS_NAME, props.className, props.showHoverOverlay === false ? "" : "hoverable"]
     .filter(Boolean)
     .join(" ");
@@ -26,7 +27,7 @@ function LinkTile(props: LinkTileProps) {
 }
 export default React.memo(LinkTile);
 
-const getCaptionFontSize = function(width, height) {
+const getCaptionFontSize = function (width, height) {
   let smallerDimension = width < height ? width : height;
   return smallerDimension < 100 ? "12px" : smallerDimension > 175 ? "16px" : "14px";
 };
@@ -42,7 +43,7 @@ const StyledCaptionOverlay = styled.div`
   bottom: 0;
   left: 0;
   right: 0;
-  color: ${(prop) => getHexColor(prop.iconColor)};
+  color: ${(prop) => getThemeColor(prop.iconColor)};
   padding: 10px 5px;
   transition: top 0.2s ease-out, background-color 0.3s ease-out;
   font-size: ${(props) => getCaptionFontSize(props.width, props.height)};
@@ -52,11 +53,12 @@ const StyledCaptionOverlay = styled.div`
     top: 0;
     opacity: 1;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
-    background: ${(props) => getHexColor(props.hoverColor || "themeSecondary")};
+    background: ${(props) => getThemeColor(props.hoverColor || "themeSecondary")};
   }
 `;
 
 const StyledLinkContainer = styled(Link)`
+  display: inline-block;
   position: relative;
   .icon-image > i {
     margin-bottom: ${(props) => Math.floor(props.height * 0.2)}px;
@@ -65,9 +67,13 @@ const StyledLinkContainer = styled(Link)`
 `;
 
 export interface LinkTileProps extends IconImageProps {
+  /** Url to the link */
   href: string;
+  /** The child element will be rendered as the caption and appear in the hover animation if showHoverOverlay prop is true. */
   children: any;
+  /** Enables slide up animation on hover if set to true */
   showHoverOverlay?: boolean;
+  /** CSS Color or Theme Param */
   hoverColor?: string;
   [key: string]: any;
 }

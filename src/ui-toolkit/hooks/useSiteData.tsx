@@ -1,5 +1,4 @@
 import React from "react";
-import { Placeholder } from "@pnp/spfx-controls-react/lib/Placeholder";
 import SPScript from "spscript";
 import { Spinner } from "office-ui-fabric-react/lib/Spinner";
 import { getSiteUrl } from "../core/utils/sharepointUtils";
@@ -118,10 +117,10 @@ export function useSiteData<T>(params: SiteDataParams<T>) {
   } as SiteDataState<T>;
 }
 
-export const InvalidSitePlaceholder = React.memo(function(props: { message: string }) {
-  let message = props.message || "Please connect to a valid site";
-  return <Placeholder iconName="Warning" iconText="Invalid Site" description={message} />;
-});
+// export const InvalidSitePlaceholder = React.memo(function (props: { message: string }) {
+//   let message = props.message || "Please connect to a valid site";
+//   return <Placeholder iconName="Warning" iconText="Invalid Site" description={message} />;
+// });
 
 export const Loading = React.memo(() => {
   return (
@@ -140,7 +139,7 @@ export const validateListExists = async (siteUrl, listTitle) => {
     return false;
   }
 };
-export const validateSiteExists = async function(siteUrl: string): Promise<boolean> {
+export const validateSiteExists = async function (siteUrl: string): Promise<boolean> {
   // If the siteUrl matches the current site the user is on, no point checking it exists
   if (getSiteUrl() === siteUrl) return true;
 

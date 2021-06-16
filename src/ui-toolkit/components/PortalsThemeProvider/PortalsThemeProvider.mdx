@@ -1,0 +1,182 @@
+export const metadata = {
+  parent: "theming",
+};
+
+# PortalsThemeProvider
+
+- Provides a way to style your webpart to respect the current site's theme
+- Provides a way to automatically re-render your webpart when the Site theme changes
+- This file also provides the `getThemeColor` helper function.
+- Also looks for Microsoft's `window.__themeState__.theme`
+  - It stores that on a `theme.global` namespace so that you can bubble up to the page theme instead of the section theme. Thus ignoring the theme variant(section background).
+  - It pulls the theme from there if you try to use `getThemeColor` but haven't wrapped your stuff in a `PortalsThemeProvider`.
+
+```tsx
+import React from "react";
+import { PortalsThemeProvider, getThemeColor } from "ui-toolkit";
+import styled from "ui-toolkit/styled-components";
+import { IReadonlyTheme } from "@microsoft/sp-component-base";
+
+function MyReactComponent(props: MyReactComponentProps) {
+  <PortalsThemeProvider theme={props.webpart.theme}>
+    <StyledContent>Your themed content goes here</StyledContent>
+  </PortalsThemeProvider>;
+}
+
+export interface MyReactComponentProps {
+  webpart?: {
+    title: string;
+    displayMode?: DisplayMode;
+    updateProperty: (key: string, value: string) => void;
+    webUrl: string;
+    // Make sure the theme is setup as a prop for your component
+    theme: IReadonlyTheme;
+  };
+}
+
+// Use theme colors when styling elements
+const StyledContent = styled.div`
+  background: ${(props) => getThemeColor("themeSecondary")};
+  color: ${(props) => getThemeColor("white")};
+`;
+```
+
+## getThemeColor
+
+`getThemeColor(themeParam:string)`
+
+You pass a theme param, it will look in `theme.semanticColors` and `theme.palette` for a match.
+
+_Examples_
+
+```typescript
+getThemeColor("white");
+// value of theme.palette.white
+getThemeColor("bodyText");
+// value of theme.semanticColors.bodyText
+getThemeColor("#220000");
+// #220000 - A theme value isn't found so it returns the raw value
+getThemeColor("white", false);
+// ignores theme variant(section background) to use real white instead of inverted white
+```
+
+You'd use `getThemeColor` in a `styled-component` like this:
+
+```tsx
+import { getThemeColor } from "ui-toolkit";
+
+const StyledButton = styled.button`
+  background: ${(props) => getThemeColor("themePrimary")};
+  color: ${(props) => getThemeColor("white")};
+`;
+```
+
+## Setup
+
+**NOTE!** The Portals Dev webpart generator does all this for you! You hopefully shouldn't have to worry about this very often.
+
+### 1. Setup the Web Part
+
+We need to ensure we wire up the theme in the `*WebPart.ts` file.
+
+1. Import the Theme stuff
+2. Setup the class properties
+3. Create an `initTheme` method to list for theme changes
+4. Initialize the theme in the webpart's onInit
+5. Pass the `this._theme` to the top level React component
+
+```typescript
+// 1. Here is the import you need for theme stuff
+import { ThemeProvider, IReadonlyTheme, ThemeChangedEventArgs } from "@microsoft/sp-component-base";
+
+export default class MyWebPart extends BaseClientSideWebPart<WebPartProperties> {
+  // 2. Setup 2 class properties
+  _themeProvider: ThemeProvider;
+  _theme: IReadonlyTheme;
+
+  async onInit() {
+    window.__portalsDev = {
+      siteUrl: this.context.pageContext.site.absoluteUrl,
+      webUrl: this.context.pageContext.web.absoluteUrl,
+    };
+
+    // 4. Initialize the theme in the webpart's onInit
+    await this.initTheme();
+
+    return super.onInit();
+  }
+
+  // 3. Create a method to list for theme changes
+  async initTheme() {
+    // Consume the new ThemeProvider service
+    this._themeProvider = this.context.serviceScope.consume(ThemeProvider.serviceKey);
+    // If it exists, get the theme variant
+    this._theme = this._themeProvider.tryGetTheme();
+    // Register a handler to be notified if the theme variant changes
+    this._themeProvider.themeChangedEvent.add(this, this._handleThemeChangedEvent);
+  }
+
+  // Handle the theme changing
+  private _handleThemeChangedEvent(args: ThemeChangedEventArgs): void {
+    this._theme = args.theme;
+    this.render();
+  }
+
+  // In the render method, pass the Theme to the top level Component
+  public render(): void {
+    let props: MyReactComponentProps = {
+      webpart: {
+        title: this.properties.title,
+        displayMode: this.displayMode,
+        updateProperty: this.handleUpdate.bind(this),
+        webUrl: this.context.pageContext.web.absoluteUrl,
+        // 5. Make sure to send the theme to your component.
+        theme: this._theme,
+      },
+    };
+    var element = React.createElement(MyReactComponent, props);
+    ReactDom.render(element, this.domElement);
+  }
+}
+```
+
+### 2. Wrap your webpart with a `PortalsThemeProvider`
+
+Make sure your react component has a prop for the them, then wrap all of
+your stuff with the `PortalsThemeProvider` component. Passing the `theme` as a prop.
+
+```tsx
+import React from "react";
+import { PortalsThemeProvider } from "ui-toolkit";
+import { IReadonlyTheme } from "@microsoft/sp-component-base";
+
+function MyReactComponent(props: MyReactComponentProps) {
+  <PortalsThemeProvider theme={props.webpart.theme}>
+    Your themed content goes here
+  </PortalsThemeProvider>;
+}
+
+export interface MyReactComponentProps {
+  webpart?: {
+    title: string;
+    displayMode?: DisplayMode;
+    updateProperty: (key: string, value: string) => void;
+    webUrl: string;
+    // Make sure the theme is setup as a prop for your component
+    theme: IReadonlyTheme;
+  };
+}
+```
+
+### 3. Use the Theme Colors when Styling
+
+You can then use theme colors with styling with `styled-components`
+
+```tsx
+import { getThemeColor } from "ui-toolkit";
+
+const StyledButton = styled.button`
+  background: ${(props) => getThemeColor("themePrimary")};
+  color: ${(props) => getThemeColor("white")};
+`;
+```

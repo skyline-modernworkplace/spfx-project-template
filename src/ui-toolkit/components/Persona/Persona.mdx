@@ -1,0 +1,152 @@
+export const metadata = {
+  parent: "surfaces",
+};
+
+import Persona from "./Persona.tsx";
+import Card from "../Card/Card.tsx";
+import { PropsTable, Showcase } from "docs";
+
+# Persona
+
+```tsx
+import { Persona } from "ui-toolkit";
+```
+
+Displays a user with a photo and title, can be configured to show subtitle and information
+as well as a call to action button.
+
+```tsx live=true
+<Persona
+  photo="https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+  title="Will Spiering"
+  subTitle="Software Engineer"
+  info="Modern Workplace"
+  callToAction="Learn More"
+  linkUrl="https://wikipedia.com"
+  //   orientation="vertical"
+  as={Card}
+/>
+```
+
+## Props
+
+<PropsTable name="PersonaProps" />
+
+## Basic Usage
+
+At minimum you should pass a `photo`, and `title`.
+
+```tsx live=true bordered=true
+<Persona
+  photo="https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+  title="Will Spiering"
+  subTitle="Software Engineer"
+  info="Modern Workplace"
+/>
+```
+
+## Photo Size
+
+You can adjust how big the photo is to fit your scenario
+
+```tsx live=true bordered=true
+<div>
+  <Persona
+    photo="https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+    title="Will Spiering"
+    photoSize="45px"
+    subTitle="Software Engineer"
+  />
+  <Persona
+    photo="https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+    title="Will Spiering"
+    photoSize="45px"
+    subTitle="Software Engineer"
+  />
+  <Persona
+    photo="https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+    title="Will Spiering"
+    photoSize="45px"
+    subTitle="Software Engineer"
+  />
+</div>
+```
+
+## Link Url and Call To action
+
+You can pass a `linkUrl` and it will send the user there on click. If you pass a `callToAction`, a button will be rendered for the link instead of having the entire persona be clickable.
+
+```tsx live=true bordered=true
+<div>
+  <Persona
+    photo="https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+    title="Will Spiering"
+    subTitle="Software Engineer"
+    info="Modern Workplace"
+    linkUrl="https://wikipedia.com"
+  />
+  <Persona
+    photo="https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+    title="Will Spiering"
+    subTitle="Software Engineer"
+    info="Modern Workplace"
+    linkUrl="https://wikipedia.com"
+    callToAction="Learn More"
+  />
+</div>
+```
+
+## Persona Card
+
+To render the persona as a Card, use the 'as' prop and pass the 'Card' component
+
+```tsx live=true
+<Persona
+  photo="https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+  title="Will Spiering"
+  subTitle="Software Engineer"
+  info="Modern Workplace"
+  callToAction="Learn More"
+  linkUrl="https://wikipedia.com"
+  as={Card}
+/>
+```
+
+## Item Orientation
+
+You can toggle between `horizontal` and `vertical`.
+
+```tsx live=true
+<>
+  <Persona
+    orientation="vertical"
+    photo="https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+    title="Will Spiering"
+    subTitle="Software Engineer"
+    info="Modern Workplace"
+    callToAction="Learn More"
+    linkUrl="https://wikipedia.com"
+    as={Card}
+  />
+  <Persona
+    orientation="horizontal"
+    photo="https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+    title="Will Spiering"
+    subTitle="Software Engineer"
+    info="Modern Workplace"
+    callToAction="Learn More"
+    linkUrl="https://wikipedia.com"
+    as={Card}
+  />
+  <Persona
+    orientation="horizontal"
+    photo="https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+    title="Will Spiering"
+    subTitle="Software Engineer"
+    info="Modern Workplace"
+    callToAction="Learn More"
+    linkUrl="https://wikipedia.com"
+    as={Card}
+  />
+</>
+```

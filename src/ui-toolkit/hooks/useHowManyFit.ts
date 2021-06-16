@@ -1,7 +1,9 @@
 import useComponentSize from "./useComponentSize";
 
 export interface HowManyFitOptions {
+  /** Allows you to cut off how many items will fit. Defaults to nothing. */
   maxItems?: number;
+  /** Defaults to 0. Allows you to account for space between elements. You'll have*/
   spacing?: number;
 }
 const defaults: HowManyFitOptions = {
